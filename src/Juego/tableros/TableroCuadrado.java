@@ -17,6 +17,7 @@ public class TableroCuadrado extends Tablero {
 	 * Crea las listas de las piezas, todas, las negras y las blancas
 	 * a partir de las peias colocadas en el tablero
 	 */
+	@Override
 	public  void cogerPiezas()
 	{
 		piezas = new ArrayList<Pieza>();

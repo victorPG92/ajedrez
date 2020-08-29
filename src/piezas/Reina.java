@@ -155,30 +155,8 @@ public class Reina extends Pieza {
 		return a;
 	}
 
-	/*
-	public String toString()
-	{
-		//return new String("R");
-		String s= "Reina";
-		s+= blanca;
-		s+= pos.toString();
-		return s;
-	}
-	*/
-	public static void main(String args [])
-	{
-		
-		Posicion p = new Posicion(1,1);
-		TableroAjedrez t = new TableroAjedrez(true);
-		Reina r = new Reina(true, p,t); 
-		
-		
-		for(Movimiento m: r.movimientos())
-		{
-			System.out.println(m.toString());
-		}
-	}
-
+	
+	
 	@Override
 	public char getSigla() {
 		// TODO Auto-generated method stub
@@ -281,4 +259,32 @@ public class Reina extends Pieza {
 			}
 	 * 
 	 */
+	
+	
+	/*
+	public String toString()
+	{
+		//return new String("R");
+		String s= "Reina";
+		s+= blanca;
+		s+= pos.toString();
+		return s;
+	}
+	*/
+	
+	/*
+	public static void main(String args [])
+	{
+		
+		Posicion p = new Posicion(1,1);
+		TableroAjedrez t = new TableroAjedrez(true);
+		Reina r = new Reina(true, p,t); 
+		
+		
+		for(Movimiento m: r.movimientos())
+		{
+			System.out.println(m.toString());
+		}
+	}
+*/
 }

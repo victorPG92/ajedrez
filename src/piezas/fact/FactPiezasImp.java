@@ -139,17 +139,17 @@ public class FactPiezasImp  extends FactPiezas
 	
 	
 	
-	
+	/*
 	
 	public static void main(String args [])
 	{
-		System.out.println((FactPiezas.getInst().creaPieza(TipoFicha.ALFIL, true, new Posicion(0,0), new TableroAjedrez(true))));
+		System.out.println((FactPiezas.getInst().creaPieza(TipoFicha.ALFIL, true, new Posicion(0,0), new TableroAjedrez())));
 		
 		
-		System.out.println((FactPiezas.getInst().creaPieza(TipoFicha.TORRE, true, new Posicion(0,0), new TableroAjedrez(true))));
-		System.out.println((FactPiezas.getInst().creaPieza(TipoFicha.PEON, true, new Posicion(0,0), new TableroAjedrez(true))));
+		System.out.println((FactPiezas.getInst().creaPieza(TipoFicha.TORRE, true, new Posicion(0,0), new TableroAjedrez())));
+		System.out.println((FactPiezas.getInst().creaPieza(TipoFicha.PEON, true, new Posicion(0,0), new TableroAjedrez())));
 	}
-
+*/
 
 	@Override
 	public void reiniciarCont() 

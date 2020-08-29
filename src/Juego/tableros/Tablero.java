@@ -6,7 +6,7 @@ import java.util.List;
 
 import piezas.Pieza;
 
-public class Tablero {
+public abstract class Tablero {
 
 
 	protected List<Pieza> piezas;
@@ -29,5 +29,11 @@ public class Tablero {
 
 	public List<Pieza> getPiezasNegras() {	return piezasNegras;}
 	public void setPiezasNegras(List<Pieza> piezasNegras) {	this.piezasNegras = piezasNegras;	}
+
+	/**
+	 * Crea las listas de las piezas, todas, las negras y las blancas
+	 * a partir de las peias colocadas en el tablero
+	 */
+	public abstract void cogerPiezas() ;
 
 }

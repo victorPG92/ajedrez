@@ -20,20 +20,17 @@ public class TableroAjedrez extends TableroCuadrado
 	
 	
 	
-	public TableroAjedrez(boolean crears)
+	public TableroAjedrez(/*boolean crears*/)
 	{
 		casillas = new Escaque[8][8];
 		boolean enr=true;
-		
+		construyeTablero();
+		/*
 		if(crears)
 		{
-			if(enr)
-				crearEnroque();
-			else 
-				creaPiezas();
 			
 			cogerPiezas();
-		}
+		}*/
 	}
 	
 	private void construyeTablero()
@@ -390,7 +387,7 @@ public class TableroAjedrez extends TableroCuadrado
 	
 	public Object clone()
 	{
-		TableroAjedrez t= new TableroAjedrez(false);
+		TableroAjedrez t= new TableroAjedrez();
 		for(int i=0;i<Constantes.TAM;i++)
 			for(int j=0;j<Constantes.TAM;j++)
 			{

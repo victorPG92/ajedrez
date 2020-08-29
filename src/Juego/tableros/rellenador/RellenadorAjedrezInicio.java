@@ -6,7 +6,7 @@ import Juego.util.Posicion;
 import piezas.TipoFicha;
 import piezas.fact.FactPiezas;
 
-public class RellenadorAjedrezInicio 
+public class RellenadorAjedrezInicio implements RellenadorTablero<TableroAjedrez>
 {
 	
 
@@ -44,6 +44,9 @@ public class RellenadorAjedrezInicio
 				
 				
 			}	
+		
+	
+		t.cogerPiezas();
 	}
 	
 	

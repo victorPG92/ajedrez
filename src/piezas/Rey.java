@@ -151,7 +151,7 @@ public class Rey extends PiezaEnrocable
 	*/
 	//al mover, no puede ser a casillas prohibidas
 	
-	
+	/*
 	public static void main(String args [])
 	{
 		
@@ -165,7 +165,7 @@ public class Rey extends PiezaEnrocable
 			System.out.println(m.toString());
 		}
 	}
-
+*/
 
 
 	@Override
@@ -185,7 +185,7 @@ public class Rey extends PiezaEnrocable
 
 	@Override
 	public String nombre() {
-		// TODO Auto-generated method stub
+
 		return Constantes.REY;
 	}
 	
@@ -203,7 +203,7 @@ public class Rey extends PiezaEnrocable
 	
 	@Override
 	public int dameValor() {
-		// TODO Auto-generated method stub
+
 		return Integer.MAX_VALUE;
 	}
 	

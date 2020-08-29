@@ -122,6 +122,43 @@ public class Alfil extends Pieza
 		return a;
 	}
 
+
+	@Override
+	public char getSigla() {
+	
+		return 'A';
+	}
+	
+	
+	public Object clone(TableroAjedrez t)
+	{
+		Alfil a = new Alfil(blanca,pos,t,id);
+		a.setJ(j);
+		return a;
+		
+		
+	}
+
+	@Override
+	public String nombre() {
+		
+		return Constantes.ALFIL;
+	}
+
+	@Override
+	public ClaveEnumCompuesta dameClave() 
+	{
+		if(blanca) 	return ClaveEnumCompuesta.ALFIL_BLANCO;
+		else 		return ClaveEnumCompuesta.ALFIL_NEGRO;
+	}
+
+	@Override
+	public int dameValor() {
+		// TODO Auto-generated method stub
+		return 2;
+	}
+
+	
 	/*
 	public String toString()
 	{
@@ -133,7 +170,7 @@ public class Alfil extends Pieza
 	}
 	*/
 	
-	public static void main(String args [])
+	/*public static void main(String args [])
 	{
 		
 		Posicion p = new Posicion(1,1);
@@ -145,7 +182,7 @@ public class Alfil extends Pieza
 		{
 			System.out.println(m.toString());
 		}
-	}
+	}*/
 	/*
 	
 	public Alfil(boolean blanco,int x,int y)
@@ -198,41 +235,6 @@ public class Alfil extends Pieza
 		return null;
 	}
 	*/
-
-	@Override
-	public char getSigla() {
-	
-		return 'A';
-	}
-	
-	
-	public Object clone(TableroAjedrez t)
-	{
-		Alfil a = new Alfil(blanca,pos,t,id);
-		a.setJ(j);
-		return a;
-		
-		
-	}
-
-	@Override
-	public String nombre() {
-		
-		return Constantes.ALFIL;
-	}
-
-	@Override
-	public ClaveEnumCompuesta dameClave() 
-	{
-		if(blanca) 	return ClaveEnumCompuesta.ALFIL_BLANCO;
-		else 		return ClaveEnumCompuesta.ALFIL_NEGRO;
-	}
-
-	@Override
-	public int dameValor() {
-		// TODO Auto-generated method stub
-		return 2;
-	}
 
 	
 	/*

@@ -7,6 +7,7 @@ import Juego.movimientos.Movimiento;
 import Juego.movimientos.MovimientoEncadenado;
 import Juego.tableros.Tablero;
 import Juego.tableros.TableroAjedrez;
+import Juego.tableros.TableroDamas;
 import Juego.util.Posicion;
 import piezas.Pieza;
 import vista.mapper.claves.ClaveEnumCompuesta;
@@ -17,6 +18,13 @@ public class Dama extends Pieza{
 	
 	
 	boolean esReina;//o pieza a parte
+	public Dama(boolean b, Posicion pos, TableroDamas t) 
+	{
+		this.blanca=b;
+		this.pos=pos;
+		this.tableroAjedrez=t;
+	}
+
 	@Override
 	public char getSigla() {
 		return 0;

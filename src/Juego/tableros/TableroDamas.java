@@ -6,8 +6,8 @@ import Juego.util.Posicion;
 public class TableroDamas extends TableroAjedrez
 {
 	public TableroDamas(boolean crears) {
-		super(crears);
-		// TODO Auto-generated constructor stub
+		super();
+		
 	}
 
 	/**

@@ -51,7 +51,7 @@ public class JuegoAjedrez
 		j1.setTurno(true);
 		j2.setTurno(false);
 		
-		t= new TableroAjedrez(true);
+		t= new TableroAjedrez();
 		
 		
 		
