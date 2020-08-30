@@ -3,6 +3,7 @@ package damas;
 import java.util.ArrayList;
 import java.util.List;
 
+import Juego.Escaque;
 import Juego.movimientos.Movimiento;
 import Juego.movimientos.MovimientoEncadenado;
 import Juego.tableros.Tablero;
@@ -17,7 +18,9 @@ public class Dama extends Pieza{
 	
 	
 	
-	boolean esReina;//o pieza a parte
+	boolean esReina;//o pieza a parte , se puede reutilizar con un bucle for para recorrer diagonal
+	
+	
 	public Dama(boolean b, Posicion pos, TableroDamas t) 
 	{
 		this.blanca=b;
@@ -31,10 +34,13 @@ public class Dama extends Pieza{
 	}
 
 	@Override
-	public ArrayList<Movimiento> movimientos() 
+	public List<Movimiento> movimientos() 
 	{
 		List<Movimiento> movs= new ArrayList<>();
 		
+		movs.addAll(dameMovimientosDesde(tableroAjedrez.dameEscaque(pos)));
+		
+		/*
 		Posicion posActual= getPos();
 		int avance= isBlanca()?1:-1;
 		Posicion posDiagonIzqda= posActual.addAnotherVector(-1, avance);
@@ -45,8 +51,77 @@ public class Dama extends Pieza{
 		else
 		Movimiento mov1= new Movimiento(this,posDiagonIzqda , c);
 		Movimiento mov2= new Movimiento(this,posDiagonDcha , c);
-
+		 */
 		return movs;
+	}
+	
+	public List<Movimiento> dameMovimientosDesde(Escaque esc)
+	{
+		Escaque escIzqda=dameEscaqueDiagonal(esc, true, 1);
+		Escaque escDcha=dameEscaqueDiagonal(esc, true, 1);
+		
+		
+	}
+	public List<Movimiento> dameMovimientosDesdeHaciaSimpleYEncadenados(Escaque esc, boolean izqda)
+	{
+		
+		List<Movimiento> movs = new ArrayList<>();
+		
+		Escaque escIzqda=dameEscaqueDiagonal(esc, true, 1);
+		Escaque escDcha=dameEscaqueDiagonal(esc, false, 1);
+		
+		
+		if(escIzqda!=null)//si no se sale del tablero
+		{
+			//la casilla esta libre y no come, movimiento simple y se para ahi
+			if(!escIzqda.estaOcupado())
+			{
+				movs.add(new Movimiento(this, escIzqda, false));
+			}
+			else
+			{
+				Escaque escIzqda2=dameEscaqueDiagonal(esc, true, 2);
+				//Escaque escDcha2=dameEscaqueDiagonal(esc, false, 2);
+				
+				if(((TableroDamas)tableroAjedrez).sePuedeir(escIzqda2))//escIzqda2!==null && !escIzqda2.estaOcupado())
+				{
+					Pieza piezaComida= escIzqda.damePieza();
+					//movimient despues de saltar 2: 
+					MovimientoEncadenado movEncIzqda= new MovimientoEncadenado(this,escIzqda2, piezaComida);
+					
+					
+					movEncIzqda.concatenaMov(movEnc);
+				}
+				movs.addAll(c);
+			}
+		}
+		//codigo repetido, optimizar con parametro izqda
+		if(escDcha!=null)
+		{
+			if(!escDcha.estaOcupado())
+			{
+				movs.add(new Movimiento(this, escDcha, false));
+			}
+			else
+			{
+				
+			}
+		}
+		
+		return movs;
+	}
+	
+	
+	
+	public Escaque dameEscaqueDiagonal(Escaque esc, boolean izqda, int numAvance)
+	{
+		int avance= isBlanca()?1:-1;
+		avance*= numAvance;
+		int orientacion= izqda?-1:1;
+		
+		Posicion posDiagon1= esc.getPos().addAnotherVector(orientacion, avance);
+		
+		return tableroAjedrez.dameEscaque(posDiagon1);
 	}
 	
 	/**
@@ -65,6 +140,8 @@ public class Dama extends Pieza{
 		
 		
 	}
+	
+	
 	
 	/**
 	 * crea un mov simple en diagonal, se mueve en 1
@@ -90,23 +167,49 @@ public class Dama extends Pieza{
 		return new Movimiento(this, tableroAjedrez.dameEscaque(posSig), false);
 	}
 	
-	public MovimientoEncadenado crearMovComerSalto(Posicion pos, boolean izqda)
+	public MovimientoEncadenado crearMovComerSalto(Posicion posAnt, Posicion posSig)
 	{
+		MovimientoEncadenado movEnc = new MovimientoEncadenado()
 		
+		movEnc.setComer(true);
+		movEnc.setPieza(this);
+		movEnc.setEsqDest(tableroAjedrez.g);
+				
+		return movEnc;
 	}
 	
 	
 	
 	@Override
-	public List<Movimiento> getMovimientosComer(Posicion posActual) 
+	public List<Movimiento> getMovimientosComer(Escaque esc) 
 	{
 	
+		List<Movimiento> movs= new ArrayList<>();
+		
+		//excepto que sea reina
+		
+		//la siguiente debe estar ocupada:
 		int avance= isBlanca()?1:-1;
+		
+		//y las siguientes libres:
+		int avance2= isBlanca()?2:-2;
+		/*
 		Posicion posDiagonIzqda= posActual.addAnotherVector(-1, avance);
 		Posicion posDiagonDcha= posActual.addAnotherVector(1, avance);
+		*/
 		
-		Movimiento mov1= new Movimiento(this, , c);
-		return null;
+		Escaque escIzqda= dameEscaqueDiagonal(esc, true, avance);
+		Escaque escIzqda2= dameEscaqueDiagonal(esc, true, avance);
+		MovimientoEncadenado mov1= new Movimiento(this, , c);
+		
+		
+		return movs;
+	}
+	
+	public List<MovimientoEncadenado> encadenaMov(MovimientoEncadenado movOrigen
+			List<MovimientoEncadenado> movHijos)
+	{
+		
 	}
 
 	@Override

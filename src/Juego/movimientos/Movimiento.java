@@ -38,7 +38,7 @@ public class Movimiento
 		
 		//if(comer && e.damePieza()==null)	SalidaDatosVentana.mostrarError( e.toString() +" "+ c); 
 		
-		if(comer && escDest.damePieza()!=null) 
+		if(comer && escDest.estaOcupado()) //damePieza()!=null
 			valor = escDest.damePieza().dameValor();
 		
 	}

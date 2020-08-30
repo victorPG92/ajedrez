@@ -1,6 +1,7 @@
 package piezas;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import vista.mapper.claves.ClaveEnumCompuesta;
 import entradaSalida.EntradaTeclado;
@@ -70,9 +71,9 @@ public abstract class Pieza
 	}
 	*/
 	
-	public abstract ArrayList<Movimiento> movimientos();
+	public abstract List<Movimiento> movimientos();
 	
-	public boolean crearMov(ArrayList<Movimiento> a,int i, int j)
+	public boolean crearMov(List<Movimiento> a,int i, int j)
 	{
 		boolean comer=false;
 		

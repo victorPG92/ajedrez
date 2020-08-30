@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.util.ArrayList;
+import java.util.List;
 
 import Juego.Escaque;
 import Juego.movimientos.Movimiento;
@@ -33,7 +34,7 @@ public class TableroAjedrezVisual extends TableroCreado
 			
 		protected boolean escuchado;
 		
-		protected ArrayList<Movimiento> movimientos; // <Posicion>
+		protected List<Movimiento> movimientos; // <Posicion>
 		
 		
 		
@@ -183,8 +184,8 @@ public class TableroAjedrezVisual extends TableroCreado
 
 		public void setColumna(Integer columna) {			this.columna = columna;		}
 
-		public ArrayList<Movimiento> getMovimientos() {			return movimientos;		}
-		public void setMovimientos(ArrayList<Movimiento> movimientos) {			this.movimientos = movimientos;		}
+		public List<Movimiento> getMovimientos() {			return movimientos;		}
+		public void setMovimientos(List<Movimiento> movimientos) {			this.movimientos = movimientos;		}
 
 		public TableroAjedrez getT() {			return tablero;		}
 		public void setT(TableroAjedrez t) {			this.tablero = t;		}

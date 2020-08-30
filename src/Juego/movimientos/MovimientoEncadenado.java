@@ -1,6 +1,7 @@
 package Juego.movimientos;
 
 import Juego.Escaque;
+import piezas.Pieza;
 
 /**
  * Encadena movimientos para las damas 
@@ -12,6 +13,19 @@ public class MovimientoEncadenado extends Movimiento{
 	
 	MovimientoEncadenado movSig;
 	
+	
+	
+	public MovimientoEncadenado(Pieza pieza, Escaque escDest, boolean c) {
+		super(pieza, escDest, c);
+	
+	}
+	
+	public MovimientoEncadenado(Pieza piezaMovida, Escaque escDest, Pieza piezaComida) {
+		this(piezaMovida, escDest, true);
+		setPiezaComida(piezaComida);
+	
+	}
+
 	public void concatenaMov(MovimientoEncadenado movEnc)
 	{
 		if(movSig==null)
