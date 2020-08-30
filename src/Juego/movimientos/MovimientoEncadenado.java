@@ -8,7 +8,7 @@ import piezas.Pieza;
  * @author victor
  *
  */
-public class MovimientoEncadenado extends Movimiento{
+public class MovimientoEncadenado extends Movimiento implements Cloneable{
 
 	
 	MovimientoEncadenado movSig;
@@ -23,6 +23,12 @@ public class MovimientoEncadenado extends Movimiento{
 	public MovimientoEncadenado(Pieza piezaMovida, Escaque escDest, Pieza piezaComida) {
 		this(piezaMovida, escDest, true);
 		setPiezaComida(piezaComida);
+	
+	}
+
+	public MovimientoEncadenado(MovimientoEncadenado movOrigen) {
+
+		
 	
 	}
 
@@ -51,6 +57,11 @@ public class MovimientoEncadenado extends Movimiento{
 			return movSig.getEsqDest();
 	}
 	
-	
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+			MovimientoEncadenado clon= (MovimientoEncadenado) super.clone();
+			clon.movSig= (MovimientoEncadenado) this.movSig.clone();
+			return clon;
+		}
 	
 }

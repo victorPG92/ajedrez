@@ -5,7 +5,7 @@ import Juego.Escaque;
 import Juego.util.Posicion;
 import entradaSalida.SalidaDatosVentana;
 
-public class Movimiento 
+public class Movimiento implements Cloneable
 {
 	 
 	//protected Tablero t;
@@ -24,6 +24,10 @@ public class Movimiento
 	private boolean enroque=false;
 	
 	public Movimiento() {
+		super();
+	}
+	
+	public Movimiento(Movimiento mov) {
 		super();
 	}
 

@@ -38,8 +38,9 @@ public class Dama extends Pieza{
 	{
 		List<Movimiento> movs= new ArrayList<>();
 		
-		movs.addAll(dameMovimientosDesde(tableroAjedrez.dameEscaque(pos)));
+		//movs.addAll(dameMovimientosDesde(tableroAjedrez.dameEscaque(pos)));
 		
+		return dameMovimientosDesdeHaciaSimpleYEncadenados(tableroAjedrez.dameEscaque(pos));
 		/*
 		Posicion posActual= getPos();
 		int avance= isBlanca()?1:-1;
@@ -52,16 +53,30 @@ public class Dama extends Pieza{
 		Movimiento mov1= new Movimiento(this,posDiagonIzqda , c);
 		Movimiento mov2= new Movimiento(this,posDiagonDcha , c);
 		 */
-		return movs;
+		//return movs;
 	}
-	
+	/*
 	public List<Movimiento> dameMovimientosDesde(Escaque esc)
 	{
 		Escaque escIzqda=dameEscaqueDiagonal(esc, true, 1);
 		Escaque escDcha=dameEscaqueDiagonal(esc, true, 1);
 		
 		
+	}*/
+	
+	public List<Movimiento> dameMovimientosDesdeHaciaSimpleYEncadenados(Escaque esc)
+	{
+		
+		List<Movimiento> movs = new ArrayList<>();
+		
+		movs.addAll(dameMovsCompuestos(esc, false));
+		movs.addAll(dameMovsCompuestos(esc, true));
+
+		return movs;
+	
 	}
+	
+	/*
 	public List<Movimiento> dameMovimientosDesdeHaciaSimpleYEncadenados(Escaque esc, boolean izqda)
 	{
 		
@@ -89,10 +104,11 @@ public class Dama extends Pieza{
 					//movimient despues de saltar 2: 
 					MovimientoEncadenado movEncIzqda= new MovimientoEncadenado(this,escIzqda2, piezaComida);
 					
-					
-					movEncIzqda.concatenaMov(movEnc);
+					;
+					movs.addAll(encadenaMov(movEncIzqda, getMovimientosComer(escIzqda2)));
+					//movEncIzqda.concatenaMov(movEnc);
 				}
-				movs.addAll(c);
+				
 			}
 		}
 		//codigo repetido, optimizar con parametro izqda
@@ -104,6 +120,43 @@ public class Dama extends Pieza{
 			}
 			else
 			{
+				
+			}
+		}
+		
+		return movs;
+	}
+	*/
+	private List<? extends Movimiento> dameMovsCompuestos(Escaque esc, boolean izqda )
+	{
+		
+		List<Movimiento> movs= new ArrayList<>();
+		
+		Escaque escAv1=dameEscaqueDiagonal(esc,izqda ,1 );
+		
+		
+		if(escAv1!=null)//si no se sale del tablero
+		{
+			//la casilla esta libre y no come, movimiento simple y se para ahi
+			if(!escAv1.estaOcupado())
+			{
+				movs.add(new Movimiento(this, escAv1, false));
+			}
+			else
+			{
+				Escaque escIzqda2=dameEscaqueDiagonal(esc, true, 2);
+				//Escaque escDcha2=dameEscaqueDiagonal(esc, false, 2);
+				
+				if(((TableroDamas)tableroAjedrez).sePuedeir(escIzqda2))//escIzqda2!==null && !escIzqda2.estaOcupado())
+				{
+					Pieza piezaComida= escAv1.damePieza();
+					//movimient despues de saltar 2: 
+					MovimientoEncadenado movEncIzqda= new MovimientoEncadenado(this,escIzqda2, piezaComida);
+					
+					;
+					movs.addAll(encadenaMov(movEncIzqda, getMovimientosComer(escIzqda2)));
+					//movEncIzqda.concatenaMov(movEnc);
+				}
 				
 			}
 		}
@@ -127,7 +180,7 @@ public class Dama extends Pieza{
 	/**
 	 * crea un mov simple en diagonal, se mueve en 1
 	 * @return
-	 */
+	 
 	public Movimiento crearMovSimple(Posicion pos, boolean izqda)
 	{
 		int avance= isBlanca()?1:-1;
@@ -135,11 +188,11 @@ public class Dama extends Pieza{
 		
 		Posicion posDiagon1= pos.addAnotherVector(orientacion, avance);
 		
-		if(tableroAjedrez.estaOcupada(posDiagon1))
+		if(!tableroAjedrez.estaOcupada(posDiagon1))
 			
 		
 		
-	}
+	}*/
 	
 	
 	
@@ -167,24 +220,25 @@ public class Dama extends Pieza{
 		return new Movimiento(this, tableroAjedrez.dameEscaque(posSig), false);
 	}
 	
+	/*
 	public MovimientoEncadenado crearMovComerSalto(Posicion posAnt, Posicion posSig)
 	{
-		MovimientoEncadenado movEnc = new MovimientoEncadenado()
+		MovimientoEncadenado movEnc = new MovimientoEncadenado();
 		
 		movEnc.setComer(true);
 		movEnc.setPieza(this);
 		movEnc.setEsqDest(tableroAjedrez.g);
 				
 		return movEnc;
-	}
+	}*/
 	
 	
 	
-	@Override
-	public List<Movimiento> getMovimientosComer(Escaque esc) 
+	
+	public List<MovimientoEncadenado> getMovimientosComer(Escaque esc) 
 	{
 	
-		List<Movimiento> movs= new ArrayList<>();
+		List<MovimientoEncadenado> movs= new ArrayList<>();
 		
 		//excepto que sea reina
 		
@@ -192,26 +246,56 @@ public class Dama extends Pieza{
 		int avance= isBlanca()?1:-1;
 		
 		//y las siguientes libres:
-		int avance2= isBlanca()?2:-2;
+		int avance2= 2*avance; //asi en el bule for  el 2 sera i
+		//isBlanca()?2:-2;
+		
 		/*
 		Posicion posDiagonIzqda= posActual.addAnotherVector(-1, avance);
 		Posicion posDiagonDcha= posActual.addAnotherVector(1, avance);
 		*/
 		
 		Escaque escIzqda= dameEscaqueDiagonal(esc, true, avance);
-		Escaque escIzqda2= dameEscaqueDiagonal(esc, true, avance);
-		MovimientoEncadenado mov1= new Movimiento(this, , c);
-		
+		Escaque escIzqda2= dameEscaqueDiagonal(esc, true, avance2);
+		if(escIzqda.estaOcupado())
+		{
+			Pieza piezaComida= escIzqda2.damePieza();
+			MovimientoEncadenado mov1= new MovimientoEncadenado(this, escIzqda2, piezaComida);
+			
+			List<MovimientoEncadenado> movsHijos = getMovimientosComer(escIzqda2);
+			
+			return encadenaMov(mov1, movsHijos);
+		}
 		
 		return movs;
 	}
 	
-	public List<MovimientoEncadenado> encadenaMov(MovimientoEncadenado movOrigen
+	public List<MovimientoEncadenado> encadenaMov(MovimientoEncadenado movOrigen,
 			List<MovimientoEncadenado> movHijos)
 	{
+	
+		List<MovimientoEncadenado> movs= new ArrayList<>();
+		movs.add(movOrigen);
 		
-	}
+			movHijos.forEach(m->
+			{
+				try {
+					
+					MovimientoEncadenado movHijo1 = (MovimientoEncadenado) movOrigen.clone();
+					movHijo1.concatenaMov(m);
+					movs.add(movHijo1);
 
+				} catch (CloneNotSupportedException e) {
+					e.printStackTrace();
+				}
+				
+			});
+			
+			return movs;
+			
+			
+		//=new MovimientoEncadenado(movOrigen);
+	}
+	
 	@Override
 	public String nombre() {
 		
@@ -220,13 +304,18 @@ public class Dama extends Pieza{
 
 	@Override
 	public Object clone(TableroAjedrez t) {
-		// TODO Auto-generated method stub
+		try {
+			return super.clone();
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return null;
 	}
 
 	@Override
 	public ClaveEnumCompuesta dameClave() {
-		// TODO Auto-generated method stub
+		//return ClaveEnumCompuesta.DAMA
 		return null;
 	}
 
@@ -236,6 +325,8 @@ public class Dama extends Pieza{
 	 */
 	public int dameValor() {
 		
+		if(esReina)
+			return 5;
 		return 1;
 	}
 
