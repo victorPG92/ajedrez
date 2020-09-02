@@ -20,17 +20,20 @@ public class Dama extends Pieza{
 	
 	boolean esReina;//o pieza a parte , se puede reutilizar con un bucle for para recorrer diagonal
 	
-	
+	private static int idInc=0;
 	public Dama(boolean b, Posicion pos, TableroDamas t) 
 	{
 		this.blanca=b;
 		this.pos=pos;
 		this.tableroAjedrez=t;
+		id= idInc++;
 	}
 
 	@Override
 	public char getSigla() {
-		return 0;
+		if(esReina)
+			return 'D';
+		return 'd';
 	}
 
 	@Override
@@ -69,7 +72,9 @@ public class Dama extends Pieza{
 		
 		List<Movimiento> movs = new ArrayList<>();
 		
+		System.out.println("movimientos derecha");
 		movs.addAll(dameMovsCompuestos(esc, false));
+		System.out.println("movimientos derecha");
 		movs.addAll(dameMovsCompuestos(esc, true));
 
 		return movs;
@@ -140,24 +145,39 @@ public class Dama extends Pieza{
 			//la casilla esta libre y no come, movimiento simple y se para ahi
 			if(!escAv1.estaOcupado())
 			{
+				System.out.println("el escaque "+escAv1 +" esta libre y lo podemos usar");
 				movs.add(new Movimiento(this, escAv1, false));
 			}
-			else
+			else if(piezaEsContraria(escAv1))
 			{
-				Escaque escIzqda2=dameEscaqueDiagonal(esc, true, 2);
+				System.out.println("el escaque "+escAv1 +" esta ocupado por pieza de otro color y debemos ver si lo podemos saltar");
+
+				Escaque escIzqda2=dameEscaqueDiagonal(esc, izqda, 2);
 				//Escaque escDcha2=dameEscaqueDiagonal(esc, false, 2);
 				
+				System.out.println("comprobar el escaque "+escIzqda2 );
+
 				if(((TableroDamas)tableroAjedrez).sePuedeir(escIzqda2))//escIzqda2!==null && !escIzqda2.estaOcupado())
 				{
+					System.out.println("El escaque "+escIzqda2 +" esta libre");
 					Pieza piezaComida= escAv1.damePieza();
 					//movimient despues de saltar 2: 
 					MovimientoEncadenado movEncIzqda= new MovimientoEncadenado(this,escIzqda2, piezaComida);
 					
-					;
+					
 					movs.addAll(encadenaMov(movEncIzqda, getMovimientosComer(escIzqda2)));
 					//movEncIzqda.concatenaMov(movEnc);
 				}
+				else
+				{
+					System.out.println("El escaque "+escIzqda2 +" esta pcupado");
+				}
 				
+			}
+			else
+			{
+				System.out.println("el escaque "+escAv1 +" esta ocupado por pieza del mismo color y no se puede  saltar");
+
 			}
 		}
 		
@@ -166,13 +186,20 @@ public class Dama extends Pieza{
 	
 	
 	
+	private boolean piezaEsContraria(Escaque esc) {
+		return esc.damePieza().isBlanca()!=this.blanca;
+	}
+
 	public Escaque dameEscaqueDiagonal(Escaque esc, boolean izqda, int numAvance)
 	{
 		int avance= isBlanca()?1:-1;
 		avance*= numAvance;
 		int orientacion= izqda?-1:1;
+		orientacion*=numAvance;
 		
-		Posicion posDiagon1= esc.getPos().addAnotherVector(orientacion, avance);
+		//Posicion posDiagon1= esc.getPos().addAnotherVector(orientacion, avance);
+
+		Posicion posDiagon1= esc.getPos().addAnotherVector( avance, orientacion);
 		
 		return tableroAjedrez.dameEscaque(posDiagon1);
 	}
@@ -238,6 +265,7 @@ public class Dama extends Pieza{
 	public List<MovimientoEncadenado> getMovimientosComer(Escaque esc) 
 	{
 	
+		System.out.println("ver movs comer");
 		List<MovimientoEncadenado> movs= new ArrayList<>();
 		
 		//excepto que sea reina
@@ -254,17 +282,21 @@ public class Dama extends Pieza{
 		Posicion posDiagonDcha= posActual.addAnotherVector(1, avance);
 		*/
 		
-		Escaque escIzqda= dameEscaqueDiagonal(esc, true, avance);
-		Escaque escIzqda2= dameEscaqueDiagonal(esc, true, avance2);
-		if(escIzqda.estaOcupado())
+		for(boolean izq: new boolean[]{false,true})
 		{
-			Pieza piezaComida= escIzqda2.damePieza();
-			MovimientoEncadenado mov1= new MovimientoEncadenado(this, escIzqda2, piezaComida);
-			
-			List<MovimientoEncadenado> movsHijos = getMovimientosComer(escIzqda2);
-			
-			return encadenaMov(mov1, movsHijos);
+			Escaque escIzqda= dameEscaqueDiagonal(esc, izq, avance);
+			Escaque escIzqda2= dameEscaqueDiagonal(esc, izq, avance2);
+			if(escIzqda !=null && escIzqda.estaOcupado() && escIzqda.damePieza().isBlanca()!=blanca)//   //!((TableroDamas)tableroAjedrez).sePuedeir(escIzqda)
+			{
+				Pieza piezaComida= escIzqda.damePieza();
+				MovimientoEncadenado mov1= new MovimientoEncadenado(this, escIzqda2, piezaComida);
+				
+				List<MovimientoEncadenado> movsHijos = getMovimientosComer(escIzqda2);
+				
+				return encadenaMov(mov1, movsHijos);
+			}
 		}
+		
 		
 		return movs;
 	}
@@ -276,21 +308,21 @@ public class Dama extends Pieza{
 		List<MovimientoEncadenado> movs= new ArrayList<>();
 		movs.add(movOrigen);
 		
-			movHijos.forEach(m->
-			{
-				try {
-					
-					MovimientoEncadenado movHijo1 = (MovimientoEncadenado) movOrigen.clone();
-					movHijo1.concatenaMov(m);
-					movs.add(movHijo1);
-
-				} catch (CloneNotSupportedException e) {
-					e.printStackTrace();
-				}
+		movHijos.forEach(m->
+		{
+			try {
 				
-			});
+				MovimientoEncadenado movHijo1 = (MovimientoEncadenado) movOrigen.clone();
+				movHijo1.concatenaMov(m);
+				movs.add(movHijo1);
+
+			} catch (CloneNotSupportedException e) {
+				e.printStackTrace();
+			}
 			
-			return movs;
+		});
+		
+		return movs;
 			
 			
 		//=new MovimientoEncadenado(movOrigen);

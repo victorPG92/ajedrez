@@ -154,22 +154,29 @@ public class TableroAjedrez extends TableroCuadrado
 			m.setFueMovida(false);
 		}
 		Escaque origen= dameEscaque(p.damePosicion());
-		
 		origen.extraePieza();
+				
+		moverComerPiezas(m);
+				
+		return true;
+	}
+
+	
+	protected void moverComerPiezas(Movimiento m)
+	{
+		System.out.println("comer piezas ajedrez");
 		Escaque dest= m.getEsqDest();
-		
+
 		Pieza piezaComida=dest.extraePieza();
 		if(piezaComida!=null)
 			piezaComida.morir();
 		m.setPiezaComida(piezaComida);
 		
-		dest.recibirPieza(p, m.isComer());
-		
-		
-		return true;
+		Pieza p= m.getPieza();
+
+		dest.recibirPieza(p, m.isComer());		
 	}
 
-	
 	public boolean deshacerMovimiento(Movimiento m) 
 	{
 		if(m instanceof MovimientoEnroque || m.isEnroque())

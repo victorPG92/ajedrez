@@ -60,8 +60,17 @@ public class MovimientoEncadenado extends Movimiento implements Cloneable{
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 			MovimientoEncadenado clon= (MovimientoEncadenado) super.clone();
-			clon.movSig= (MovimientoEncadenado) this.movSig.clone();
+			if(this.movSig!=null)
+				clon.movSig= (MovimientoEncadenado) this.movSig.clone();
 			return clon;
-		}
+	}
+
+	public final MovimientoEncadenado getMovSig() {
+		return movSig;
+	}
+	
+	
+	
+	
 	
 }
