@@ -123,21 +123,71 @@ public class Rey extends PiezaEnrocable
 	{
 		boolean enrocable= true;
 		
-		int j = torre.damePosicion().getX();
-		int y = torre.damePosicion().getY();
-		if(j==Constantes.TAM-1)
+		int miCol=damePosicion().getY();
+		int miFila= damePosicion().getX();
+		
+		System.out.println("comprobar enroque de "+ this + " "+ this.getPos());
+		System.out.println("torre "+torre);
+		
+		int f = torre.damePosicion().getX();
+		int c = torre.damePosicion().getY();
+		
+		System.out.println("pos torre "+torre.damePosicion()+" fila "+f+", col"+c);
+		
+		if(c==0)//es torre izquierda
 		{
-			for(int  i = damePosicion().getX()+1;  i<j && enrocable;  i++)
-				if(tableroAjedrez.estaOcupada(i, y))enrocable =false;
+			for(int  i = 1;  i<miCol && enrocable;  i++)
+			{
+				System.out.println(tableroAjedrez.dameEscaque(f,i));
+
+				if(tableroAjedrez.estaOcupada(f,i))
+				{					
+					System.out.println("esta ocupado " +f+ " "+ i );
+
+					enrocable =false;
+				}
+			}
 		}
-		else if(j==0)
+
+		else if(c==Constantes.TAM-1)// si es torre derecha
 		{
-			for(int  i = damePosicion().getX() -1;  i>=0 && enrocable;  i--)
-				if(tableroAjedrez.estaOcupada(i, y))enrocable =false;
+			for(int i = miCol+1;  i<c && enrocable;  i++)
+			{
+				System.out.println(tableroAjedrez.dameEscaque(f,i));
+				if(tableroAjedrez.estaOcupada(f,i))
+				{
+					enrocable =false; // i y
+					System.out.println("esta ocupado " +f+ " "+ i);
+				}	
+			}
 		}
+				
+		System.out.println("fin enrocar");
+		System.out.println();
 		
 		return enrocable;
 	}
+	/*
+	public boolean noPiezasEntreMedias(Pieza torre)
+	{
+		boolean enrocable= true;
+		
+		int x = torre.damePosicion().getX();
+		int y = torre.damePosicion().getY();
+		
+		if(x==Constantes.TAM-1)// si es torre derecha
+		{
+			for(int  i = damePosicion().getX()+1;  i<x && enrocable;  i++)
+				if(tableroAjedrez.estaOcupada(y,i))enrocable =false; // i y
+		}
+		else if(x==0)//es torre izquierda
+		{
+			for(int  i = damePosicion().getX() -1;  i>=0 && enrocable;  i--)
+				if(tableroAjedrez.estaOcupada(y,i))enrocable =false;
+		}
+		
+		return enrocable;
+	}*/
 	
 	/*
 	public String toString()

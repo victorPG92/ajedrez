@@ -18,7 +18,7 @@ public class RellenadorDamasInicio implements RellenadorTablero<TableroDamas>{
 				
 				//t.dameEscaque(pos).setPieza(FactPiezas.getInst().creaPieza(TipoFicha.D,true,pos,t));
 				
-				t.dameEscaque(pos).setPieza(new Dama(true,pos,t));
+				t.dameEscaque(pos).setPieza(new Dama(i<2,pos,t));
 				
 			}	
 		

@@ -50,7 +50,7 @@ public class JuegosDamas extends Juego
 		if(((TableroDamas)this.tablero).sePuedeir(escPulsado) )//en damas la siguiente es una a la que puedas ir
 		{
 			//si repite el mismo
-			if(escPulsado.equals(escaquesDest.get(escaquesDest.size()-1)))
+			if(!escaquesDest.isEmpty() && escPulsado.equals(escaquesDest.get(escaquesDest.size()-1)))
 			{
 				if(escaquesDest.size()==1) //es mov simple
 				{

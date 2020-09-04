@@ -10,6 +10,7 @@ import java.util.List;
 import Juego.Escaque;
 import Juego.util.Posicion;
 import constantes.Constantes;
+import damas.Dama;
 import movimientos.Movimiento;
 import piezas.Pieza;
 import tableros.TableroAjedrez;
@@ -155,6 +156,11 @@ public class TableroAjedrezVisual extends TableroCreado
 		
 		public void dibujarPieza(Graphics g, Pieza p, int x0, int y0)
 		{
+			if(p instanceof Dama)
+			{
+				dibujarDama(g,(Dama)p,x0,y0);
+			}
+			
 			//Image img = MapperPiezas.getInstancia().dameImagen(new Clave(p.nombre(),p.isBlanca(),e.isBlanca()));
 			//Image img = FactMapper.getInst().creaMapper().dameImagen(p.dameTipo());
 			
@@ -176,6 +182,25 @@ public class TableroAjedrezVisual extends TableroCreado
 			}
 		}
 		
+		private void dibujarDama(Graphics g, Dama p, int x0, int y0) {
+			if(p.isBlanca())
+				g.setColor(Color.black);
+			else
+				g.setColor(Color.white);
+			
+			g.drawOval(x0, y0, casX, casY);
+			
+			
+			if(!p.isBlanca())
+				g.setColor(Color.black);
+			else
+				g.setColor(Color.white);
+			
+			g.fillOval(x0, y0, casX, casY);
+			
+		}
+
+
 		public Integer getFila() {			return fila;		}
 
 		public void setFila(Integer fila) {			this.fila = fila;		}

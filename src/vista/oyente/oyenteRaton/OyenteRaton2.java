@@ -282,12 +282,14 @@ public class OyenteRaton2 implements MouseListener
 		}
 		catch(NullPointerException e)
 		{
+			e.printStackTrace();
 			comportamientoNUllPointerException(e);
 			
 		}
 		catch(Exception e)
 		{
 			System.err.println("excepction");
+			e.printStackTrace();
 			SalidaDatosVentana.mostrarError(e.getMessage());
 			
 			//e.printStackTrace();
