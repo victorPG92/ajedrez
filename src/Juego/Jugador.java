@@ -1,17 +1,18 @@
 package Juego;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import piezas.Pieza;
 
 public class Jugador
 {
 	private int id;
-	private ArrayList<Pieza> misPiezas;
+	private List<Pieza> misPiezas;
 	private boolean turno;
 	
 	private boolean enJaque;
-	
+	private List<Pieza> misPiezasComidas;
 	
 	
 	public Jugador(int id)
@@ -19,6 +20,8 @@ public class Jugador
 		misPiezas = new ArrayList<Pieza>();
 		this.id=id;
 		
+		misPiezasComidas = new ArrayList<Pieza>();
+
 		//if(id==1) blancas
 		//else negras
 	}
@@ -32,10 +35,10 @@ public class Jugador
 	}
 
 
-	public ArrayList<Pieza> getMisPiezas() {
+	public List<Pieza> getMisPiezas() {
 		return misPiezas;
 	}
-	public void setMisPiezas(ArrayList<Pieza> misPiezas) {
+	public void setMisPiezas(List<Pieza> misPiezas) {
 		this.misPiezas = misPiezas;
 	}
 	

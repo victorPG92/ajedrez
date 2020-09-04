@@ -42,7 +42,7 @@ public class MovimientoEncadenado extends Movimiento implements Cloneable{
 			movSig.concatenaMov(movEnc);
 			
 	}
-	
+	/*
 	public boolean sigueCaminoEnDestino(List<Escaque> escques)
 	{
 		if(escques.isEmpty())
@@ -52,14 +52,21 @@ public class MovimientoEncadenado extends Movimiento implements Cloneable{
 			Escaque esqPrimer= escques.remove(0);
 			return dest.equals(esqPrimer) && movSig.sigueCaminoEnDestino(escques); 
 		}
-	}
+	}*/
 	
 	public boolean sigueCaminoEnDestino(List<Escaque> escques, int ind, boolean exacto)
 	{
-		if(escques.isEmpty() && (!exacto || movSig==null))
-			return true;
+		if(escques.isEmpty() )
+		{
+			if(!exacto || movSig==null)
+				return true;
+			else return false;
+		}
 		else
 		{
+			if(ind>=escques.size())
+				return false;
+			
 			Escaque esqPrimer= escques.get(ind);
 			return dest.equals(esqPrimer) //coincide
 					&& movSig !=null // omo la lista no es vacia, deberia haber mas movs 

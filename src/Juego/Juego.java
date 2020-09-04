@@ -7,6 +7,8 @@ import Excepciones.ExcepcionEscaqueFueraDeRango;
 import Excepciones.ExcepcionNoPieza;
 import Excepciones.ExcepcionPiezaDeOtroJugador;
 import Excepciones.ExcepcionPiezaSinMovimientos;
+import Juego.extractor.ExtractorPiezas;
+import Juego.extractor.ExtractorPiezasInicial;
 import Juego.util.Dificultad;
 import movimientos.Movimiento;
 import piezas.Pieza;
@@ -40,6 +42,8 @@ public abstract class Juego {
 
 	protected boolean turnoFinalizado;
 	
+	ExtractorPiezas extrPiezas= new ExtractorPiezasInicial();
+	
 	public Juego() 
 	{
 		j1=new Jugador(1);
@@ -50,7 +54,7 @@ public abstract class Juego {
 		j2.setTurno(false);
 		
 		construyeTablero();
-		
+		extrPiezas.extraerPiezas(tablero, j1, j2);
 		
 		
 		 colocaTurnos();

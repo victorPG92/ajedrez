@@ -26,6 +26,8 @@ public class JuegosDamas extends Juego
 		rell= new RellenadorDamasInicio();
 		System.err.println(rell);
 		rell.creaPiezas((TableroDamas)tablero);
+		
+		
 	}
 	
 	
@@ -64,10 +66,11 @@ public class JuegosDamas extends Juego
 						filter(m->m.sigueCaminoEnDestino(escaquesDest, escaquesDest.size(), true)).findFirst().get();
 				}
 				
+				tablero.realizarMovimiento(movimientoEnConstruccion);
 				movimientosJugados.add(movimientoEnConstruccion);
 				movimientoEnConstruccion=null;
 				escaquesDest= new ArrayList<>();
-				
+				cambiarTurno();
 			}
 			else
 			{

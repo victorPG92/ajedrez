@@ -286,7 +286,7 @@ public class Dama extends Pieza{
 		{
 			Escaque escIzqda= dameEscaqueDiagonal(esc, izq, avance);
 			Escaque escIzqda2= dameEscaqueDiagonal(esc, izq, avance2);
-			if(escIzqda !=null && escIzqda.estaOcupado() && escIzqda.damePieza().isBlanca()!=blanca)//   //!((TableroDamas)tableroAjedrez).sePuedeir(escIzqda)
+			if(escIzqda !=null && escIzqda.estaOcupado() && escIzqda.damePieza().isBlanca()!=blanca && escIzqda2!=null)//   //!((TableroDamas)tableroAjedrez).sePuedeir(escIzqda)
 			{
 				Pieza piezaComida= escIzqda.damePieza();
 				MovimientoEncadenado mov1= new MovimientoEncadenado(this, escIzqda2, piezaComida);

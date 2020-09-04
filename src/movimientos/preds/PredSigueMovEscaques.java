@@ -30,7 +30,7 @@ public class PredSigueMovEscaques implements Predicate<Movimiento>{
 	public boolean test(Movimiento m) 
 	{
 		if(m instanceof MovimientoEncadenado)
-			return ((MovimientoEncadenado)m).sigueCaminoEnDestino(esc);
+			return ((MovimientoEncadenado)m).sigueCaminoEnDestino(esc,esc.size(),false);
 		
 		return 
 				esc.size()==1 && m.getEsqDest().equals(esc.get(0));

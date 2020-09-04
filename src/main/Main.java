@@ -15,7 +15,7 @@ public class Main
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TipoJuego tipo= TipoJuego.ajedrez;
+					TipoJuego tipo= TipoJuego.damas;
 					VentanaAjedrez.tipoAjedrezEstatico= tipo;
 					VentanaAjedrez frame =  VentanaAjedrez.getInstancia();//new Tablero());
 					frame.ponerListeners();

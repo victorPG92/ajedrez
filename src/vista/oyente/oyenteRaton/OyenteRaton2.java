@@ -201,7 +201,9 @@ public class OyenteRaton2 implements MouseListener
 			
 			//System.out.println("jugando casilla destino \n"+ j.getT());
 			//puedo comprobar antes, si se puede mover
-			j.jugarCasillaDestino(fila, columna);//,pieza,movs);
+			boolean turnoAnt= j.isTurno();
+			while(turnoAnt== j.isTurno())
+				j.jugarCasillaDestino(fila, columna);//,pieza,movs);
 			 
 			/*
 			v.getTxtFila().setText(Integer.toString(fila));
