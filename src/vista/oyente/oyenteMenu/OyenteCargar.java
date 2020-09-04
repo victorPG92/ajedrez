@@ -3,7 +3,7 @@ package vista.oyente.oyenteMenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import Juego.JuegoAjedrez;
+import Juego.Juego;
 import Juego.util.Posicion;
 import constantes.Constantes;
 import entradaSalida.ficheros.LectorFichero;
@@ -14,14 +14,14 @@ import vista.ventana.VentanaAjedrez;
 public class OyenteCargar implements ActionListener 
 {
 	
-	JuegoAjedrez j;
+	Juego j;
 	VentanaAjedrez v;
 	
 	ParserPieza pp= new ParserPieza();
 
 	
 	
-	public OyenteCargar(JuegoAjedrez j) {
+	public OyenteCargar(Juego j) {
 		super();
 		this.j = j;
 		v= VentanaAjedrez.getInstancia();
@@ -33,7 +33,7 @@ public class OyenteCargar implements ActionListener
 
 
 
-	public OyenteCargar(JuegoAjedrez j, VentanaAjedrez v) {
+	public OyenteCargar(Juego j, VentanaAjedrez v) {
 		super();
 		this.j = j;
 		this.v = v;
@@ -92,8 +92,8 @@ public class OyenteCargar implements ActionListener
 
 
 
-	public JuegoAjedrez getJ() {return j;	}
-	public void setJ(JuegoAjedrez j) {	this.j = j;	}
+	public Juego getJ() {return j;	}
+	public void setJ(Juego j) {	this.j = j;	}
 
 	public VentanaAjedrez getV() {		return v;	}
 	public void setV(VentanaAjedrez v) {	this.v = v;	}

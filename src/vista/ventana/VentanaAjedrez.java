@@ -15,10 +15,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import Juego.Juego;
 import Juego.JuegoAjedrez;
-import Juego.movimientos.Movimiento;
-import Juego.tableros.TableroAjedrez;
+import Juego.JuegosDamas;
 import constantes.Mensajes;
+import movimientos.Movimiento;
+import tableros.TableroAjedrez;
 import vista.oyente.oyenteBoton.OyenteRetroceder;
 import vista.oyente.oyenteMenu.OyenteCargar;
 import vista.oyente.oyenteMenu.OyenteGuardar;
@@ -35,7 +37,7 @@ public class VentanaAjedrez extends JFrame //extends Observador
 		protected  TableroAjedrezVisual canvas ;
 		
 		//protected Tablero tablero; ////////////////////////////////////////////
-		protected JuegoAjedrez j;
+		protected Juego juego;
 				
 		protected Integer fila;
 		protected Integer columna;
@@ -91,11 +93,13 @@ public class VentanaAjedrez extends JFrame //extends Observador
 		private JButton btnCargar;
 		
 		private static VentanaAjedrez v;
+
+		public static TipoJuego tipoAjedrezEstatico= TipoJuego.ajedrez;
 		
 		/**
 		 * Create the frame.
 		 */
-		protected VentanaAjedrez()//Tablero tabl)
+		protected VentanaAjedrez()// TipoJuego tipoJuego Tablero tabl)
 		
 		{
 			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -111,7 +115,10 @@ public class VentanaAjedrez extends JFrame //extends Observador
 			this.setName("Ajedrez");
 			this.setTitle("Ajedrez");
 			
-			j = new JuegoAjedrez();
+			if(TipoJuego.ajedrez==tipoAjedrezEstatico)
+				juego = new JuegoAjedrez();
+			else
+				juego= new JuegosDamas();
 			contentPane.setLayout(null);
 			
 			//this.tablero=j.getT();
@@ -132,7 +139,7 @@ public class VentanaAjedrez extends JFrame //extends Observador
 			//Caretaker.getInst().guardaEstado(new Memento(j));
 			
 			System.out.println("INICIO");
-			System.out.println(j.getT().toString());
+			System.out.println(juego.getT().toString());
 			System.out.println("-------------------------------------------");
 			canvas.repaint();
 		}
@@ -159,13 +166,13 @@ public class VentanaAjedrez extends JFrame //extends Observador
 			
 			JMenuItem mnGuarda = new JMenu("Guarda");
 			mnArchivo.add(mnGuarda);
-			mnGuarda.addActionListener(new OyenteGuardar(j));
+			mnGuarda.addActionListener(new OyenteGuardar(juego));
 		/*
 			mnGuarda.addMouseListener(l);
 			mnGuarda.addItemListener(l);
 			mnGuarda.addMenuKeyListener(l);
 			*/
-			mnGuarda.addMenuDragMouseListener(new OyenteGuardar(j));
+			mnGuarda.addMenuDragMouseListener(new OyenteGuardar(juego));
 						
 			
 			JMenuItem mnSalir = new JMenu("Salir");
@@ -310,7 +317,7 @@ public class VentanaAjedrez extends JFrame //extends Observador
 			super.repaint();
 			this.canvas.repaint();
 			
-			if(j.isTurno())  lblTurnoJugador.setText(Mensajes.TURNO_JUGADOR_1);
+			if(juego.isTurno())  lblTurnoJugador.setText(Mensajes.TURNO_JUGADOR_1);
 			else			 lblTurnoJugador.setText(Mensajes.TURNO_JUGADOR_2 );
 			
 			pintarHistorial();
@@ -324,14 +331,14 @@ public class VentanaAjedrez extends JFrame //extends Observador
 		
 		public void ponerListeners()
 		{
-			btnRetroceder.addActionListener( new OyenteRetroceder(j,this));
-			btnGuardar.addActionListener(new OyenteGuardarNombre(j,this));
-			btnCargar.addActionListener(new OyenteCargar(j, this));
+			btnRetroceder.addActionListener( new OyenteRetroceder(juego,this));
+			btnGuardar.addActionListener(new OyenteGuardarNombre(juego,this));
+			btnCargar.addActionListener(new OyenteCargar(juego, this));
 		}
 		
 		private void pintarHistorial()
 		{
-			Stack<Movimiento> movs = j.getMovimientosJugados();
+			Stack<Movimiento> movs = juego.getMovimientosJugados();
 			
 			StringBuilder sb = new StringBuilder();
 			sb.append("Movimientos Jugados:\n");
@@ -371,8 +378,8 @@ public class VentanaAjedrez extends JFrame //extends Observador
 			getCanvas().setT(tablero);
 		}*/
 		
-		public JuegoAjedrez getJ() {			return j;		}
-		public void setJuego(JuegoAjedrez j)		{			this.j=j;
+		public Juego getJ() {			return juego;		}
+		public void setJuego(Juego j)		{			this.juego=j;
 		}
 	
 	
@@ -389,26 +396,12 @@ public class VentanaAjedrez extends JFrame //extends Observador
 		
 		public static VentanaAjedrez getInstancia()
 		{
+			
 			if(v==null)v= new  VentanaAjedrez();
 			return v;
 		}
 		
-		/**
-		 * Launch the application.
-		 */
-		public static void main(String[] args) {
-			EventQueue.invokeLater(new Runnable() {
-				public void run() {
-					try {
-						VentanaAjedrez frame =  VentanaAjedrez.getInstancia();//new Tablero());
-						frame.ponerListeners();
-						frame.setVisible(true);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-			});
-		}
+		
 }
 
 

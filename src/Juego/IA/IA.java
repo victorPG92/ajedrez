@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Juego.JuegoAjedrez;
-import Juego.movimientos.Movimiento;
-import Juego.tableros.TableroAjedrez;
+import movimientos.Movimiento;
 import piezas.Pieza;
+import tableros.TableroAjedrez;
 
 public class IA 
 {

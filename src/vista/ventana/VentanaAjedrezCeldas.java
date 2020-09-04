@@ -15,10 +15,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import Juego.Juego;
 import Juego.JuegoAjedrez;
-import Juego.movimientos.Movimiento;
-import Juego.tableros.TableroAjedrez;
 import constantes.Mensajes;
+import movimientos.Movimiento;
+import tableros.TableroAjedrez;
 import vista.oyente.oyenteBoton.OyenteRetroceder;
 import vista.oyente.oyenteMenu.OyenteGuardar;
 import vista.oyente.oyenteMenu.OyenteMenuSalir2;
@@ -33,7 +34,7 @@ public class VentanaAjedrezCeldas extends VentanaAjedrez //extends Observador
 		protected  TableroAjedrezVisual canvas ;
 		
 		//protected Tablero tablero; ////////////////////////////////////////////
-		protected JuegoAjedrez j;
+		protected Juego j;
 				
 		protected Integer fila;
 		protected Integer columna;
@@ -356,8 +357,8 @@ public class VentanaAjedrezCeldas extends VentanaAjedrez //extends Observador
 			getCanvas().setT(tablero);
 		}*/
 		
-		public JuegoAjedrez getJ() {			return j;		}
-		public void setJuego(JuegoAjedrez j)		{			this.j=j;
+		public Juego getJ() {			return j;		}
+		public void setJuego(Juego j)		{			this.j=j;
 		}
 	
 	

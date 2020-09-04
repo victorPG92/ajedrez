@@ -7,7 +7,9 @@ import java.awt.event.MouseListener;
 
 import Excepciones.ExcepcionJaqueMate;
 import Juego.Escaque;
+import Juego.Juego;
 import Juego.JuegoAjedrez;
+import Juego.JuegosDamas;
 import constantes.Estado;
 import constantes.Mensajes;
 import entradaSalida.SalidaDatosVentana;
@@ -96,7 +98,7 @@ public class OyenteRaton2 implements MouseListener
 		Pieza pieza;
 		try
 		{
-			JuegoAjedrez j= v.getJ();
+			Juego j= v.getJ();
 			/*
 			if(j.comprobarJaque())
 			{
@@ -178,7 +180,7 @@ public class OyenteRaton2 implements MouseListener
 		
 		try
 		{
-			JuegoAjedrez j= v.getJ();
+			Juego j= v.getJ();
 			//Juego j =Caretaker.getInst().dameEstado().dameEstado();
 			
 			
@@ -210,9 +212,10 @@ public class OyenteRaton2 implements MouseListener
 			t.setFila(fila);
 			t.setColumna(columna);
 			
+			if(j.isTurnoFinalizado())
 			
-			t.setMovimientos(null);
-			j.cambiarTurno();
+			//t.setMovimientos(null);
+			//j.cambiarTurno();
 			//System.out.println("Cambio de turno:Le toca a " +j.isTurno());
 			/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			
@@ -220,41 +223,56 @@ public class OyenteRaton2 implements MouseListener
 			
 			System.out.println(t);
 			//System.out.println("comprobar jaque");
-			boolean enJaque=j.comprobarJaque();
-			//System.out.println(t);
-			if(!enJaque)
+			
+			if(j instanceof JuegoAjedrez)
 			{
-				v.setEstado(Estado.ELEGIR_CASILLA_INICIAL);
-				estado=Estado.ELEGIR_CASILLA_INICIAL;
-			}
-			else
-			{
-				System.out.println("en jaque .");
-				
-				//boolean jaqueMate=j.comprobarJaqueMate();
-				boolean jaqueMate=JuegoAjedrez.comprobarJaqueMate(j.getT(),j.isTurno());
-				System.out.println("comprobado en mate");
-				System.out.println(t);
-				if(!jaqueMate)
+				JuegoAjedrez jAjedrez= (JuegoAjedrez) j;
+				boolean enJaque=jAjedrez.comprobarJaque();
+				//System.out.println(t);
+				if(!enJaque)
 				{
-					System.out.println("No es mate");
-					v.setEstado(Estado.ELEGIR_CASILLA_INICIAL_JAQUE);
-					estado=Estado.ELEGIR_CASILLA_INICIAL_JAQUE;
-					
-					String jug;
-					if(j.isTurno()) jug = "Blancas";
-					else	jug = "Negras";
-					SalidaDatosVentana.mostrarError(jug+ " estan en jaque");
+					v.setEstado(Estado.ELEGIR_CASILLA_INICIAL);
+					estado=Estado.ELEGIR_CASILLA_INICIAL;
 				}
 				else
 				{
-					System.out.println(" es MATE");
-					System.err.println(" es MATE");
+					System.out.println("en jaque .");
+					
+					//boolean jaqueMate=j.comprobarJaqueMate();
+					boolean jaqueMate=JuegoAjedrez.comprobarJaqueMate(j.getT(),j.isTurno());
+					System.out.println("comprobado en mate");
+					System.out.println(t);
+					if(!jaqueMate)
+					{
+						System.out.println("No es mate");
+						v.setEstado(Estado.ELEGIR_CASILLA_INICIAL_JAQUE);
+						estado=Estado.ELEGIR_CASILLA_INICIAL_JAQUE;
+						
+						String jug;
+						if(j.isTurno()) jug = "Blancas";
+						else	jug = "Negras";
+						SalidaDatosVentana.mostrarError(jug+ " estan en jaque");
+					}
+					else
+					{
+						System.out.println(" es MATE");
+						System.err.println(" es MATE");
+						v.setEstado(Estado.JAQUE_MATE);
+						estado=Estado.JAQUE_MATE;
+						throw new ExcepcionJaqueMate("JAQUE MATE");
+					}
+				}
+			}
+			else if(j instanceof JuegosDamas)
+			{
+				if(((JuegosDamas)j).comprobarFin())
+				{
 					v.setEstado(Estado.JAQUE_MATE);
 					estado=Estado.JAQUE_MATE;
 					throw new ExcepcionJaqueMate("JAQUE MATE");
 				}
 			}
+			
 			
 			//se cambia tambien en ventana al ser integer?
 			System.out.println("Cambio de turno:Le toca a " +j.isTurno());

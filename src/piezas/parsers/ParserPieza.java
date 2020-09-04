@@ -1,12 +1,13 @@
 package piezas.parsers;
 
+import Juego.Juego;
 import Juego.JuegoAjedrez;
 import Juego.Jugador;
-import Juego.tableros.TableroAjedrez;
 import Juego.util.Posicion;
 import piezas.Pieza;
 import piezas.TipoFicha;
 import piezas.fact.FactPiezas;
+import tableros.TableroAjedrez;
 
 public class ParserPieza// extends Parser<Pieza>
 {
@@ -22,7 +23,7 @@ public class ParserPieza// extends Parser<Pieza>
 	
 
 	
-	public Pieza damePieza(String linea,Posicion pos,TableroAjedrez t,JuegoAjedrez j)
+	public Pieza damePieza(String linea,Posicion pos,TableroAjedrez t,Juego j)
 	{
 		Pieza p=null;
 		

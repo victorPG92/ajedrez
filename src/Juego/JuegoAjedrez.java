@@ -11,77 +11,26 @@ import Excepciones.ExcepcionMovimientoNoPermitidoPorDejarEnJaque;
 import Excepciones.ExcepcionNoPieza;
 import Excepciones.ExcepcionPiezaDeOtroJugador;
 import Excepciones.ExcepcionPiezaSinMovimientos;
-import Juego.movimientos.Movimiento;
-import Juego.tableros.TableroAjedrez;
 import Juego.util.Dificultad;
+import movimientos.Movimiento;
 import piezas.Pieza;
+import tableros.TableroAjedrez;
+import tableros.rellenadores.RellenadorAjedrezInicio;
 
 public class JuegoAjedrez extends Juego
 {
+	RellenadorAjedrezInicio rell= new RellenadorAjedrezInicio();
 
-		
-	
-	
-	/**
-	 * Elige casilla inicial
-	 * @param i
-	 * @param j
-	 * @return
-	 * @throws Exception
-	 */
-	public Pieza jugarCasillaInicial(int i, int j) throws Exception
-	{
-		
-		
-		Pieza p=null;
-		
-		movimientoEnConstruccion=null;
-			
-		
-		Escaque e= t.dameEscaque(i, j);
-		movimientoEnConstruccion = new Movimiento();
-		if(e!=null)
-		{
-		
-			p = e.damePieza();
-			
-			
-			if(p==null)
-			{
-				System.out.println("Casilla vacia");
-				throw new ExcepcionNoPieza(); //"Casilla vacia"
-			}
-			else if(!p.getJ().isTurno()) 
-			{
-				
-				System.out.println("Pieza de jugador contrario: " + p.getJ());
-				p=null;
-				
-				throw new ExcepcionPiezaDeOtroJugador(); //"Pieza de otro jugador "
-				
-			}
-			else if(p.movimientos().isEmpty()) 
-			{
-				p=null;
-				throw new ExcepcionPiezaSinMovimientos();//"Pieza sin movimientos"
-			}
-			else
-			{
-				movimientoEnConstruccion.setPieza(p);
-			}
-			
-		}
-		else
-		{
-			///System.out.println("Posicion fuera del tablero");
-			throw new ExcepcionEscaqueFueraDeRango();//"Posicion fuera del tablero"
-		}
-	
-		
-	
-		return p;
+	@Override
+	protected void construyeTablero() {
+		tablero= new TableroAjedrez();
+
+		rell.creaPiezas(tablero);
 		
 	}
+
+	
+	
 	
 	/**
 	 * Elige casilla final, usando la casilla inicial
@@ -90,10 +39,11 @@ public class JuegoAjedrez extends Juego
 	 * @param movs, lista movimientos permitidos por la pieza p 
 	 * @throws Exception 
 	 */
+	@Override
 	public void jugarCasillaDestino(int i, int j) throws Exception
 	{
 			
-		Escaque e= t.dameEscaque(i, j);
+		Escaque e= tablero.dameEscaque(i, j);
 	
 		//if(e!=null &&(movs.contains(new Movimiento(e,true)) || movs.contains(new Movimiento(e,false))))
 		if(e!=null )
@@ -116,7 +66,7 @@ public class JuegoAjedrez extends Juego
 					
 					movimientoEnConstruccion=piezaAmover.movimientos().get(pos); 
 				}
-				t.realizarMovimiento(movimientoEnConstruccion);
+				tablero.realizarMovimiento(movimientoEnConstruccion);
 				//System.out.println("Despues de mover "+t);
 				
 				
@@ -131,7 +81,7 @@ public class JuegoAjedrez extends Juego
 					System.out.println("..-----------------------------");
 					for(Movimiento m:comprobarJaqueMovs())
 						System.out.println(m);
-					t.deshacerMovimiento(movimientoEnConstruccion);
+					tablero.deshacerMovimiento(movimientoEnConstruccion);
 					movimientoEnConstruccion.setEsqDest(null);
 					
 					throw new ExcepcionMovimientoNoPermitidoPorDejarEnJaque();
@@ -139,6 +89,7 @@ public class JuegoAjedrez extends Juego
 				movimientosJugados.add(movimientoEnConstruccion);
 				movimientoEnConstruccion=null;
 			
+				cambiarTurno();
 			}
 			else
 			{
@@ -180,7 +131,7 @@ public class JuegoAjedrez extends Juego
 	public boolean comprobarJaque()
 	{
 		boolean isJaque=false;
-		List<Pieza> piezas = t.getPiezas(!turno);
+		List<Pieza> piezas = tablero.getPiezas(!turno);
 		
 		for(Pieza p: piezas)
 		{
@@ -206,7 +157,7 @@ public class JuegoAjedrez extends Juego
 	public List<Movimiento> comprobarJaqueMovs()
 	{
 		ArrayList<Movimiento> movEnJAque=new ArrayList<>();
-		List<Pieza> piezas = t.getPiezas(!turno);
+		List<Pieza> piezas = tablero.getPiezas(!turno);
 		
 		
 		for(Pieza p: piezas)
@@ -318,7 +269,7 @@ public class JuegoAjedrez extends Juego
 	public ArrayList<Movimiento>  comprobarJaqueMateMovs()
 	{
 		ArrayList<Movimiento> movEnJAque=new ArrayList<>();
-		TableroAjedrez tClon=(TableroAjedrez) t.clone();
+		TableroAjedrez tClon=(TableroAjedrez) tablero.clone();
 		List<Pieza> piezas = tClon.getPiezas(turno);
 		
 		for(Pieza p: piezas)
@@ -347,27 +298,6 @@ public class JuegoAjedrez extends Juego
 	
 	
 
-	/**
-	 * Deshace el ultimo movimiento jugado y cambia el turno como debe ser
-	 */
-	public boolean retrocederTIempo()
-	{
-		if(!movimientosJugados.isEmpty())
-		{
-			Movimiento mov= movimientosJugados.pop();
-			t.deshacerMovimiento(mov);
-			cambiarTurno();
-			movimientoEnConstruccion=null;
-			
-			return true;
-		}
-		else
-		{
-			System.err.println("No hay movs ");
-			return false;
-		}
-			
-	}
 	
 	
 	public Object clone()
@@ -382,13 +312,13 @@ public class JuegoAjedrez extends Juego
 		j.setJ2((Jugador)j2.clone());////
 		j.setMovido(movido);
 		
-		j.setT((TableroAjedrez)t.clone());
+		j.setT((TableroAjedrez)tablero.clone());
 		j.setTurno(turno);
 		;
 		
 		gestionarTurno();
 		
-		for(Pieza p: t.getPiezas())
+		for(Pieza p: tablero.getPiezas())
 		{
 			if(p.isBlanca()) 	p.setJ(j.getJ1());
 			else  				p.setJ(j.getJ2());
@@ -422,7 +352,7 @@ public class JuegoAjedrez extends Juego
 		setJ2(j.j2);
 		setMovido(j.movido);
 		
-		setT(j.t);
+		setT(j.tablero);
 		setTurno(j.turno);
 		
 			
@@ -436,21 +366,21 @@ public class JuegoAjedrez extends Juego
 	
 	public ArrayList<Movimiento> dameCasillasPeligrosas()
 	{
-		TableroAjedrez tclon = (TableroAjedrez) t.clone();
+		TableroAjedrez tclon = (TableroAjedrez) tablero.clone();
 		ArrayList<Movimiento> movs = new ArrayList<Movimiento>();
 		
 		this.cambiarTurno();//esto no deberia
 		
-		for(Pieza p :  t.getPiezas(turno))
+		for(Pieza p :  tablero.getPiezas(turno))
 		{
 			for(Movimiento m:p.movimientos())
 			{
 				
-				t.dameEscaque(p.damePosicion()).extraePieza();
-				t.dameEscaque(m.getEsqDest().getPos()).recibirPieza(p, m.isComer());
+				tablero.dameEscaque(p.damePosicion()).extraePieza();
+				tablero.dameEscaque(m.getEsqDest().getPos()).recibirPieza(p, m.isComer());
 				
 				if(!comprobarJaque()) movs.add(m);
-				t=(TableroAjedrez) tclon.clone();
+				tablero=(TableroAjedrez) tclon.clone();
 			}
 			
 			
@@ -460,44 +390,7 @@ public class JuegoAjedrez extends Juego
 		
 	}
 	
-	
-	public Jugador getJ1() {		return j1;	}
-	public void setJ1(Jugador j1) {		this.j1 = j1;	}
-
-	public Jugador getJ2() {		return j2;	}
-	public void setJ2(Jugador j2) {		this.j2 = j2;	}
-
-	public TableroAjedrez getT() {		return t;	}
-	public void setT(TableroAjedrez t) {		this.t = t;	}
-
-
-	public Dificultad getD() {		return d;	}
-	public void setD(Dificultad d) {		this.d = d;	}
-
-	public boolean isTurno() {		return turno;	}
-	public void setTurno(boolean turno) {		this.turno = turno;	}
-
-	public boolean isExisteGanador() {		return existeGanador;	}
-	public void setExisteGanador(boolean existeGanador) {		this.existeGanador = existeGanador;	}
-
-	public boolean isGanadorJ1() {		return ganadorJ1;	}
-	public void setGanadorJ1(boolean ganadorJ1) {		this.ganadorJ1 = ganadorJ1;	}
-
-	public boolean isGanadorJ2() {		return ganadorJ2;	}
-	public void setGanadorJ2(boolean ganadorJ2) {		this.ganadorJ2 = ganadorJ2;	}
-
-	
-	public boolean isMovido() {		return movido;	}
-	public void setMovido(boolean movido) {		this.movido = movido;	}
-
-
-	public Stack<Movimiento> getMovimientosJugados() {
-		return movimientosJugados;
-	}
-
-
-	
-	
+		
 
 
 	

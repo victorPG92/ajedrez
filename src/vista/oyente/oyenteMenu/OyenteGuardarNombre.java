@@ -7,19 +7,19 @@ import javax.swing.event.MenuDragMouseEvent;
 import javax.swing.event.MenuDragMouseListener;
 
 import Juego.FicheroTablero;
-import Juego.JuegoAjedrez;
+import Juego.Juego;
 import entradaSalida.SalidaDatosVentana;
 import vista.ventana.VentanaAjedrez;
 
 public class OyenteGuardarNombre implements ActionListener , MenuDragMouseListener
 {
 	
-	JuegoAjedrez j;
+	Juego j;
 	FicheroTablero ft;
 	VentanaAjedrez v;
 	
 	
-	public OyenteGuardarNombre(JuegoAjedrez j,	VentanaAjedrez v) {
+	public OyenteGuardarNombre(Juego j,	VentanaAjedrez v) {
 		super();
 		this.j = j;
 		this.v=v;
@@ -50,8 +50,8 @@ public class OyenteGuardarNombre implements ActionListener , MenuDragMouseListen
 
 
 
-	public JuegoAjedrez getJ() {return j;	}
-	public void setJ(JuegoAjedrez j) {	this.j = j;	}
+	public Juego getJ() {return j;	}
+	public void setJ(Juego j) {	this.j = j;	}
 
 
 	

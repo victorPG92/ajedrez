@@ -38,6 +38,11 @@ public class Jugador
 	public void setMisPiezas(ArrayList<Pieza> misPiezas) {
 		this.misPiezas = misPiezas;
 	}
+	
+	public boolean tienePiezas()
+	{
+		return !misPiezas.isEmpty();
+	}
 
 	public boolean isTurno() {
 		return turno;

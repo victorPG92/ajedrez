@@ -5,10 +5,10 @@ import java.util.List;
 
 import vista.mapper.claves.ClaveEnumCompuesta;
 import entradaSalida.EntradaTeclado;
+import movimientos.Movimiento;
+import tableros.TableroAjedrez;
 import Juego.Escaque;
 import Juego.Jugador;
-import Juego.movimientos.Movimiento;
-import Juego.tableros.TableroAjedrez;
 import Juego.util.Posicion;
 
 public abstract class Pieza

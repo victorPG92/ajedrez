@@ -2,11 +2,11 @@ package test.damas;
 
 import java.util.List;
 
-import Juego.movimientos.Movimiento;
-import Juego.tableros.TableroDamas;
-import Juego.tableros.rellenador.RellenadorDamasInicio;
-import Juego.tableros.rellenador.RellenadorTablero;
 import damas.Dama;
+import movimientos.Movimiento;
+import tableros.TableroDamas;
+import tableros.rellenadores.RellenadorDamasInicio;
+import tableros.rellenadores.RellenadorTablero;
 
 public class TestDamas
 {

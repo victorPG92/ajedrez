@@ -8,7 +8,7 @@ import piezas.Reina;
 import piezas.Rey;
 import piezas.TipoFicha;
 import piezas.Torre;
-import Juego.tableros.TableroAjedrez;
+import tableros.TableroAjedrez;
 import Juego.util.Posicion;
 
 public class FactPiezasImp  extends FactPiezas

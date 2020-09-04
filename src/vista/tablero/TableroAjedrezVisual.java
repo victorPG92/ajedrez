@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Juego.Escaque;
-import Juego.movimientos.Movimiento;
-import Juego.tableros.TableroAjedrez;
 import Juego.util.Posicion;
 import constantes.Constantes;
+import movimientos.Movimiento;
 import piezas.Pieza;
+import tableros.TableroAjedrez;
 import vista.mapper.fact.FactMapper;
 import vista.oyente.oyenteRaton.OyenteRaton2;
 import vista.ventana.VentanaAjedrez;

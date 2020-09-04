@@ -1,0 +1,48 @@
+
+-------------------------------------------
+Exception in thread "AWT-EventQueue-0" java.lang.VerifyError: Bad type on operand stack
+Exception Details:
+  Location:
+    piezas/parsers/ParserPieza.damePieza(Ljava/lang/String;LJuego/util/Posicion;Ltableros/TableroAjedrez;LJuego/Juego;)Lpiezas/Pieza; @90: invokevirtual
+  Reason:
+    Type 'java/lang/Object' (current frame, stack[1]) is not assignable to 'Juego/Jugador'
+  Current Frame:
+    bci: @90
+    flags: { }
+    locals: { 'piezas/parsers/ParserPieza', 'java/lang/String', 'Juego/util/Posicion', 'tableros/TableroAjedrez', 'Juego/Juego', 'piezas/Pieza', 'piezas/TipoFicha', integer, 'java/lang/Object', integer, integer }
+    stack: { 'piezas/Pieza', 'java/lang/Object' }
+  Bytecode:
+    0000000: 013a 052b 121d b600 1f9a 006f 2b03 b600
+    0000010: 25b8 0029 3a06 2b03 b600 25b8 002f 3607
+    0000020: 1507 9900 0b19 04b6 0035 a700 0819 04b6
+    0000030: 003b 3a08 0536 092b 0405 b600 3eb8 0042
+    0000040: b600 4836 0a2a b400 1219 0615 072c 2d15
+    0000050: 0ab6 004c 3a05 1905 1908 b600 5019 052b
+    0000060: 06b6 0025 104d a000 0704 a700 0403 b600
+    0000070: 56a7 0007 3a06 01b0 1905 b0            
+  Exception Handler Table:
+    bci [3, 113] => handler: 116
+  Stackmap Table:
+    append_frame(@45,Object[#81],Object[#42],Integer)
+    same_locals_1_stack_item_frame(@50,Object[#3])
+    full_frame(@109,{Object[#1],Object[#32],Object[#114],Object[#116],Object[#54],Object[#81],Object[#42],Integer,Object[#118],Integer,Integer},{Object[#81]})
+    full_frame(@110,{Object[#1],Object[#32],Object[#114],Object[#116],Object[#54],Object[#81],Object[#42],Integer,Object[#118],Integer,Integer},{Object[#81],Integer})
+    full_frame(@116,{Object[#1],Object[#32],Object[#114],Object[#116],Object[#54],Object[#81]},{Object[#90]})
+    same_frame(@120)
+
+	at vista.oyente.oyenteMenu.OyenteCargar.<init>(OyenteCargar.java:20)
+	at vista.ventana.VentanaAjedrez.ponerListeners(VentanaAjedrez.java:336)
+	at main.Main$1.run(Main.java:21)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:313)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:770)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:721)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:715)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:85)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:740)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)

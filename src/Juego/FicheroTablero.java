@@ -5,10 +5,10 @@ import entradaSalida.ficheros.LectorFichero;
 
 public class FicheroTablero
 {
-	JuegoAjedrez j;
+	Juego j;
 	
 	
-	public FicheroTablero(JuegoAjedrez j) 
+	public FicheroTablero(Juego j) 
 	{
 		super();
 		this.j = j;
@@ -34,7 +34,7 @@ public class FicheroTablero
 	 * @return
 	 * @deprecated
 	 */
-	public JuegoAjedrez cargaJuego(String nombre)
+	public Juego cargaJuego(String nombre)
 	{
 		
 		

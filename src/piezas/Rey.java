@@ -3,11 +3,11 @@ package piezas;
 import java.util.ArrayList;
 
 import constantes.Constantes;
+import movimientos.Movimiento;
+import movimientos.MovimientoEnroque;
+import tableros.TableroAjedrez;
 import vista.mapper.claves.ClaveEnumCompuesta;
 import Juego.Escaque;
-import Juego.movimientos.Movimiento;
-import Juego.movimientos.MovimientoEnroque;
-import Juego.tableros.TableroAjedrez;
 import Juego.util.Posicion;
 
 public class Rey extends PiezaEnrocable

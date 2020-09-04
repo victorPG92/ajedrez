@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Juego.Escaque;
-import Juego.movimientos.Movimiento;
-import Juego.movimientos.MovimientoEncadenado;
-import Juego.tableros.Tablero;
-import Juego.tableros.TableroAjedrez;
-import Juego.tableros.TableroDamas;
 import Juego.util.Posicion;
+import movimientos.Movimiento;
+import movimientos.MovimientoEncadenado;
 import piezas.Pieza;
+import tableros.Tablero;
+import tableros.TableroAjedrez;
+import tableros.TableroDamas;
 import vista.mapper.claves.ClaveEnumCompuesta;
 
 public class Dama extends Pieza{

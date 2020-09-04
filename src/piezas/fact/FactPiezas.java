@@ -1,9 +1,9 @@
 package piezas.fact;
 
-import Juego.tableros.TableroAjedrez;
 import Juego.util.Posicion;
 import piezas.Pieza;
 import piezas.TipoFicha;
+import tableros.TableroAjedrez;
 
 public abstract class FactPiezas 
 {

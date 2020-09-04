@@ -1,9 +1,9 @@
 package test.damas;
 
-import Juego.tableros.TableroDamas;
-import Juego.tableros.rellenador.RellenadorTablero;
 import Juego.util.Posicion;
 import damas.Dama;
+import tableros.TableroDamas;
+import tableros.rellenadores.RellenadorTablero;
 
 public class RellenadorDamasPruebaComer implements RellenadorTablero<TableroDamas>{
 
