@@ -11,27 +11,25 @@ import tableros.TableroAjedrez;
  * @author victor
  *
  */
-public class ExtractorPiezasInicial implements ExtractorPiezas
+public class ExtractorPiezasTotal implements ExtractorPiezas
 {
 
 	@Override
 	public void extraerPiezas(TableroAjedrez t, Jugador j1, Jugador j2) {
 		
-		for (int j = 0; j < t.NUM_FILAS; j++)
+		for (int f : new int[] {0,1,6,7})
 		{
 
 			for (int i = 0; i < t.NUM_COL; i++)
 			{
-				Pieza p=t.damePieza(j, i);
+				Pieza p=t.damePieza(f, i);
 				if(p!=null)
 				{
-					if(p.isBlanca())
+					if(f<2 )
 						j1.getMisPiezas().add(p);
-					
 					else
 						j2.getMisPiezas().add(p);
 				}
-				
 			}
 
 		}	

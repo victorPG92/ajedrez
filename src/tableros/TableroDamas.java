@@ -2,6 +2,7 @@ package tableros;
 
 import Juego.Escaque;
 import Juego.util.Posicion;
+import damas.Dama;
 import movimientos.Movimiento;
 import movimientos.MovimientoEncadenado;
 import piezas.Pieza;
@@ -88,5 +89,15 @@ public class TableroDamas extends TableroAjedrez
 		}
 		else super.moverComerPiezas(m);
 		
+		promocionarADama((Dama) m.getPieza());
+		
+	}
+	
+	protected void promocionarADama(Dama dama)
+	{
+		if(
+				(dama.isBlanca()&& dama.getPos().getY()== NUM_COL-1)
+			||	(!dama.isBlanca()&& dama.getPos().getY()== 0))
+			dama.setEsReina(true);
 	}
 }

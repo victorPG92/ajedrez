@@ -182,6 +182,8 @@ public class TableroAjedrezVisual extends TableroCreado
 			}
 		}
 		
+		
+		
 		private void dibujarDama(Graphics g, Dama p, int x0, int y0) {
 			if(p.isBlanca())
 				g.setColor(Color.black);
@@ -198,6 +200,17 @@ public class TableroAjedrezVisual extends TableroCreado
 			
 			g.fillOval(x0, y0, casX, casY);
 			
+			
+			if(p.isEsReina())
+			{
+				if(p.isBlanca())
+					g.setColor(Color.black);
+				else
+					g.setColor(Color.white);
+				
+				g.drawOval(x0+casX/4, y0+casY/4, casX/2, casY/2);
+				
+			}
 		}
 
 

@@ -362,4 +362,15 @@ public class Dama extends Pieza{
 		return 1;
 	}
 
+	public final boolean isEsReina() {
+		return esReina;
+	}
+
+	public void setEsReina(boolean esReina) {
+		this.esReina = esReina;
+	}
+	
+	
+
+	
 }

@@ -26,8 +26,8 @@ public class JuegosDamas extends Juego
 	protected void construyeTablero()
 	{
 		tablero= new TableroDamas();		
-		//rell= new RellenadorDamasSalto();//RellenadorDamasInicio();
-		rell= new RellenadorDamasInicio();
+		rell= new RellenadorDamasSalto();//RellenadorDamasInicio();
+		//rell= new RellenadorDamasInicio();
 
 		System.err.println(rell);
 		rell.creaPiezas((TableroDamas)tablero);
@@ -161,11 +161,22 @@ public class JuegosDamas extends Juego
 		return getOtroJugador().tienePiezas();
 	}
 	
+	protected boolean leQuedanPiezasAlJugador()
+	{
+		return getJugadorActual().tienePiezas();
+	}
+	
 	
 	
 	public boolean comprobarFin()
 	{
+		System.err.println(getJugadorActual().getMisPiezas().size());
+		System.err.println(getOtroJugador().getMisPiezas().size());
+
+		
 		if(!leQuedanPiezasAlOtro())
+	//	if(!leQuedanPiezasAlJugador())
+
 		{
 			existeGanador=true;
 			setGanador();
