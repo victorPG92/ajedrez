@@ -26,7 +26,9 @@ public class JuegosDamas extends Juego
 	protected void construyeTablero()
 	{
 		tablero= new TableroDamas();		
-		rell= new RellenadorDamasSalto();//RellenadorDamasInicio();
+		//rell= new RellenadorDamasSalto();//RellenadorDamasInicio();
+		rell= new RellenadorDamasInicio();
+
 		System.err.println(rell);
 		rell.creaPiezas((TableroDamas)tablero);
 		
@@ -68,7 +70,10 @@ public class JuegosDamas extends Juego
 			{
 				if(escaquesDest.size()==1) //es mov simple
 				{
-					movimientoEnConstruccion=movsPosibles.get(0);
+					
+					//movimientoEnConstruccion=movsPosibles.get(0);
+					movimientoEnConstruccion=movsPosibles.stream().filter(m-> m.getEsqDest().equals(escPulsado)).findFirst().get();
+
 				}
 				else
 				{
