@@ -95,9 +95,12 @@ public class TableroDamas extends TableroAjedrez
 	
 	protected void promocionarADama(Dama dama)
 	{
+		System.err.println("viendo promocion"+dama.isBlanca()+ " "+dama.getPos().getY());
+		
+		int fila=dama.getPos().getX();
 		if(
-				(dama.isBlanca()&& dama.getPos().getY()== NUM_COL-1)
-			||	(!dama.isBlanca()&& dama.getPos().getY()== 0))
+				(dama.isBlanca()&& fila== NUM_COL-1)
+			||	(!dama.isBlanca()&& fila== 0))
 			dama.setEsReina(true);
 	}
 }

@@ -8,8 +8,8 @@ import Excepciones.ExcepcionNoPieza;
 import Excepciones.ExcepcionPiezaDeOtroJugador;
 import Excepciones.ExcepcionPiezaSinMovimientos;
 import Juego.extractor.ExtractorPiezas;
-import Juego.extractor.ExtractorPiezasInicial;
 import Juego.extractor.ExtractorPiezasTotal;
+import Juego.extractor.ExtractorPiezasParcialInicio;
 import Juego.util.Dificultad;
 import movimientos.Movimiento;
 import piezas.Pieza;
@@ -43,7 +43,7 @@ public abstract class Juego {
 
 	protected boolean turnoFinalizado;
 	
-	ExtractorPiezas extrPiezas= new ExtractorPiezasTotal();//new ExtractorPiezasInicial();
+	ExtractorPiezas extrPiezas= new ExtractorPiezasTotal();//ExtractorPiezasParcialInicio();//new ExtractorPiezasInicial();
 	
 	public Juego() 
 	{

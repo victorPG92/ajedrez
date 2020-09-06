@@ -5,31 +5,31 @@ import piezas.Pieza;
 import tableros.TableroAjedrez;
 
 /**
- * Revisa todos los escaques y coge las piezas de cada color
- *  @author victor
+ * Supone que el juego esta en la configuracion inicial
+ * las blancas en las filas 0 y 1
+ * y las negras en las filas 6 y 7
+ * @author victor
  *
  */
-public class ExtractorPiezasTotal implements ExtractorPiezas
+public class ExtractorPiezasParcialInicio implements ExtractorPiezas
 {
 
 	@Override
 	public void extraerPiezas(TableroAjedrez t, Jugador j1, Jugador j2) {
 		
-		for (int j = 0; j < t.NUM_FILAS; j++)
+		for (int f : new int[] {0,1,6,7})
 		{
 
 			for (int i = 0; i < t.NUM_COL; i++)
 			{
-				Pieza p=t.damePieza(j, i);
+				Pieza p=t.damePieza(f, i);
 				if(p!=null)
 				{
-					if(p.isBlanca())
+					if(f<2 )
 						j1.getMisPiezas().add(p);
-					
 					else
 						j2.getMisPiezas().add(p);
 				}
-				
 			}
 
 		}	
