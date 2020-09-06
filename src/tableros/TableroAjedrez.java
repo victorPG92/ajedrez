@@ -166,6 +166,7 @@ public class TableroAjedrez extends TableroCuadrado
 	 */
 	public boolean realizarMovimiento(Movimiento m) 
 	{
+		System.out.println("Realizando mov en tablero "+ m );
 		if(m instanceof MovimientoEnroque || m.isEnroque())
 			return realizarMovimientoEnr((MovimientoEnroque) m);
 		

@@ -61,6 +61,7 @@ public class OyenteRaton2 implements MouseListener
 			//v.setPieza(elegirCasillaInicial());
 			//v.getJ().setP(elegirCasillaInicial());
 			elegirCasillaInicial();
+			System.out.println("fin casilla inicial");
 			
 		}
 		else if(estado==Estado.ELEGIR_CASILLA_DESTINO)
@@ -109,6 +110,7 @@ public class OyenteRaton2 implements MouseListener
 			*/
 			pieza = v.getJ().jugarCasillaInicial(fila, columna);
 			 
+			System.out.println("fin de casilla inicial en funcion");
 				/*		
 			v.getTxtFila().setText(Integer.toString(fila));
 			v.getTxtColumna().setText(Integer.toString(columna));
@@ -119,7 +121,7 @@ public class OyenteRaton2 implements MouseListener
 			t.setFila(fila);
 			t.setColumna(columna);
 						
-			t.setMovimientos(pieza.movimientos());
+			t.setMovimientos(j.getMovsPosibles());//pieza.movimientos());
 			
 			v.setEstado(Estado.ELEGIR_CASILLA_DESTINO);
 			estado=Estado.ELEGIR_CASILLA_DESTINO;
@@ -177,6 +179,7 @@ public class OyenteRaton2 implements MouseListener
 
 	public void elegirCasillaDestino()
 	{
+
 		
 		try
 		{
@@ -202,19 +205,26 @@ public class OyenteRaton2 implements MouseListener
 			//System.out.println("jugando casilla destino \n"+ j.getT());
 			//puedo comprobar antes, si se puede mover
 			boolean turnoAnt= j.isTurno();
-			while(turnoAnt== j.isTurno())
+			//while(turnoAnt== j.isTurno()) no se pude porque hay que volver a pulsar
+			//{
+				System.out.println("Jugando "+ j.isTurno());
+				System.out.println();
 				j.jugarCasillaDestino(fila, columna);//,pieza,movs);
-			 
+				v.repaint();
+
+			//}
 			/*
 			v.getTxtFila().setText(Integer.toString(fila));
 			v.getTxtColumna().setText(Integer.toString(columna));
 			*/
+				
 			TableroAjedrezVisual t=v.getCanvas();
 			
 			t.setFila(fila);
 			t.setColumna(columna);
 			
 			if(j.isTurnoFinalizado())
+			{
 			
 			//t.setMovimientos(null);
 			//j.cambiarTurno();
@@ -281,6 +291,7 @@ public class OyenteRaton2 implements MouseListener
 			System.out.println(".--------------------------------------------------------");
 			v.repaint();
 			t.repaint();
+			}
 		}
 		catch(NullPointerException e)
 		{
@@ -296,6 +307,7 @@ public class OyenteRaton2 implements MouseListener
 			
 			//e.printStackTrace();
 		}
+		
 	}
 	
 	

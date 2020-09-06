@@ -59,16 +59,20 @@ public class TableroDamas extends TableroAjedrez
 		//	System.out.println("es mov enc");
 			MovimientoEncadenado movEnc= (MovimientoEncadenado) m;
 			Escaque escDest= null;
-			System.out.println("mov enc");
+			System.out.println("mov enc " + movEnc.numMovs());
 			while(movEnc!=null)
 			{
 				System.out.println(movEnc);
 				Pieza piezaAmover= movEnc.getPieza();
 				if(escDest!=null)
+				{
 					escDest.quitaPieza();
+					System.out.println("quitando pieza de " + escDest);
+				}
 				
-				escDest=movEnc.getEsqDest();
+				escDest=movEnc.getEsqDest();System.out.println("metiendo pieza en " + escDest);
 				escDest.recibirPieza(piezaAmover, false);
+				
 				
 				Pieza piezaComida=movEnc.getPiezaComida();
 			

@@ -2,6 +2,7 @@ package Juego;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import Excepciones.ExcepcionMovimientoNoPermitido;
 import Excepciones.ExcepcionMovimientoNoPermitidoPorDejarEnJaque;
@@ -12,18 +13,20 @@ import piezas.Pieza;
 import tableros.TableroAjedrez;
 import tableros.TableroDamas;
 import tableros.rellenadores.RellenadorDamasInicio;
+import tableros.rellenadores.RellenadorDamasSalto;
+import tableros.rellenadores.RellenadorTablero;
 
 public class JuegosDamas extends Juego 
 {
 	List<Escaque> escaquesDest= new ArrayList<>();
 
-	RellenadorDamasInicio rell= new RellenadorDamasInicio();
+	RellenadorTablero<TableroDamas> rell= new RellenadorDamasInicio();
 	
 	@Override
 	protected void construyeTablero()
 	{
 		tablero= new TableroDamas();		
-		rell= new RellenadorDamasInicio();
+		rell= new RellenadorDamasSalto();//RellenadorDamasInicio();
 		System.err.println(rell);
 		rell.creaPiezas((TableroDamas)tablero);
 		
@@ -45,11 +48,20 @@ public class JuegosDamas extends Juego
 	 */
 	public void jugarCasillaDestino(int i, int j) throws Exception
 	{			
-		Escaque escPulsado= tablero.dameEscaque(i, j);
+		System.out.println("jugar casillas destino");
+		System.err.println("jugar destino " + i + " "+ j + " acum "+ escaquesDest);
+		final Escaque escPulsado= tablero.dameEscaque(i, j);
 		
-	
+		//movsPosibles= movimientoEnConstruccion.getPieza().movimientos();
+		movsPosibles= piezaEnMov.movimientos();
+		System.out.println("movs posibles");
+		movsPosibles.stream().forEach(m-> System.out.println(m));
+		System.out.println("fin mov posibles");
+		
+		System.out.println(movsPosibles.stream().anyMatch(m-> m.getEsqDest().equals(escPulsado)));
 		//if(e!=null &&(movs.contains(new Movimiento(e,true)) || movs.contains(new Movimiento(e,false))))
 		if(((TableroDamas)this.tablero).sePuedeir(escPulsado) )//en damas la siguiente es una a la que puedas ir
+		//if((movsPosibles.stream().anyMatch(m-> m.getEsqDest().equals(escPulsado))) )//la siguiente es una a la que puedas ir de movi permitidos
 		{
 			//si repite el mismo
 			if(!escaquesDest.isEmpty() && escPulsado.equals(escaquesDest.get(escaquesDest.size()-1)))
@@ -60,27 +72,46 @@ public class JuegosDamas extends Juego
 				}
 				else
 				{
-					movimientoEnConstruccion=
-						movsPosibles.stream().filter(m-> m instanceof MovimientoEncadenado).
-						map(m-> (MovimientoEncadenado)m).
-						filter(m->m.sigueCaminoEnDestino(escaquesDest, escaquesDest.size(), true)).findFirst().get();
+					System.out.println("escaques seguidos");
+					System.out.println(escaquesDest);
+					movsPosibles= piezaEnMov.movimientos();
+					movimientoEnConstruccion=null;
+					System.out.println("movs posibles");
+					movsPosibles.forEach(m-> System.out.println(m));
+					Optional<MovimientoEncadenado> optMov = movsPosibles.stream().filter(m-> m instanceof MovimientoEncadenado).
+					map(m-> (MovimientoEncadenado)m).
+					filter(m->m.sigueCaminoEnDestino(escaquesDest, true)).findFirst();//.get();
+					
+					if(optMov.isPresent()) movimientoEnConstruccion=optMov.get();
 				}
 				
+				System.err.println("mov escogido "+ movimientoEnConstruccion);
+				if(movimientoEnConstruccion==null)System.err.println();
+				else
 				tablero.realizarMovimiento(movimientoEnConstruccion);
 				movimientosJugados.add(movimientoEnConstruccion);
 				movimientoEnConstruccion=null;
 				escaquesDest= new ArrayList<>();
 				cambiarTurno();
+				piezaEnMov=null;
+				turnoFinalizado=true;
 			}
 			else
 			{
-			//Pieza piezaAmover = movimientoEnConstruccion.getPieza();
-			escaquesDest.add(escPulsado);
-			
-			List<Movimiento> movAux= new ArrayList<>();
-			movsPosibles.stream().filter(new PredSigueMovEscaques(escaquesDest)).forEach(m->movAux.add(m));
-			//tablero.realizarMovimiento(movimientoEnConstruccion);
-			//System.out.println("Despues de mover "+t);
+				//Pieza piezaAmover = movimientoEnConstruccion.getPieza();
+				
+				System.out.println("insertando en camino "+ escPulsado);
+				escaquesDest.add(escPulsado);
+				
+				List<Movimiento> movAux= new ArrayList<>();
+				movsPosibles.stream().filter(new PredSigueMovEscaques(escaquesDest)).forEach(m->movAux.add(m));
+				movsPosibles=movAux;
+				
+				System.out.println("nuevos movs");
+				movsPosibles.forEach(m-> System.out.println(m));
+				//escPulsado=null;
+				//tablero.realizarMovimiento(movimientoEnConstruccion);
+				//System.out.println("Despues de mover "+t);
 				
 				
 				

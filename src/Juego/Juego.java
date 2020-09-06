@@ -35,7 +35,7 @@ public abstract class Juego {
 		
 	//auxiliares
 	protected Movimiento movimientoEnConstruccion;
-	
+	protected Pieza piezaEnMov;
 	protected Stack<Movimiento> movimientosJugados;
 	
 	protected List<Movimiento> movsPosibles;
@@ -197,8 +197,11 @@ public abstract class Juego {
 				}
 				else
 				{
+					System.out.println("poniendo movs");
 					movimientoEnConstruccion.setPieza(piezaUsada);
 					movsPosibles= movs;
+					piezaEnMov= piezaUsada;
+					turnoFinalizado=false;
 				}
 				
 			}
@@ -209,8 +212,12 @@ public abstract class Juego {
 			throw new ExcepcionEscaqueFueraDeRango();//"Posicion fuera del tablero"
 		}
 	
+		System.out.println("movs");		
+		movsPosibles.forEach(m-> System.out.println(m));
 		
-	
+		System.out.println("-----------acabando casilla inicial");
+		System.out.println();
+		
 		return piezaUsada;
 		
 	}
@@ -306,6 +313,11 @@ public abstract class Juego {
 
 	public final void setTurnoFinalizado(boolean turnoFinalizado) {
 		this.turnoFinalizado = turnoFinalizado;
+	}
+
+
+	public final List<Movimiento> getMovsPosibles() {
+		return movsPosibles;
 	}
 
 

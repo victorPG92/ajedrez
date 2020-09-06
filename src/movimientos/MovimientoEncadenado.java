@@ -1,5 +1,6 @@
 package movimientos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import Juego.Escaque;
@@ -54,9 +55,33 @@ public class MovimientoEncadenado extends Movimiento implements Cloneable{
 		}
 	}*/
 	
+	public boolean sigueCaminoEnDestino(List<Escaque> escques,  boolean exacto)
+	{
+		List<Escaque> escsMov = getListEscaques();
+		if(exacto) // compara toda la lista
+			return escsMov.equals(escques);
+		else
+		{
+			int min= Math.min(escques.size(),escsMov.size());
+			return escques.subList(0, min).equals(escsMov.subList(0, min));
+			/*
+			for (int i = 0; i < min; i++) 
+			{
+				
+			}*/
+		}
+		//return sigueCaminoEnDestino(escques, 0, exacto);
+	}
+	
+	
+	public boolean sigueCaminoEnDestino2(List<Escaque> escques,  boolean exacto)
+	{
+		return sigueCaminoEnDestino(escques, 0, exacto);
+	}
+		
 	public boolean sigueCaminoEnDestino(List<Escaque> escques, int ind, boolean exacto)
 	{
-		if(escques.isEmpty() )
+		if(ind>=escques.size())//if(escques.isEmpty() )
 		{
 			if(!exacto || movSig==null)
 				return true;
@@ -64,13 +89,19 @@ public class MovimientoEncadenado extends Movimiento implements Cloneable{
 		}
 		else
 		{
-			if(ind>=escques.size())
-				return false;
 			
 			Escaque esqPrimer= escques.get(ind);
-			return dest.equals(esqPrimer) //coincide
-					&& movSig !=null // omo la lista no es vacia, deberia haber mas movs 
-					&& movSig.sigueCaminoEnDestino(escques,ind+1,exacto);  
+			boolean igualPrimerElem=dest.equals(esqPrimer);  //coincide
+
+			if(movSig !=null)
+				return igualPrimerElem && movSig.sigueCaminoEnDestino(escques,ind+1,exacto);
+			else
+			{
+				if(ind< escques.size()-1)
+					return false;
+				else
+					return  igualPrimerElem;   
+			}
 		}
 	}
 	@Override
@@ -83,6 +114,12 @@ public class MovimientoEncadenado extends Movimiento implements Cloneable{
 	
 	@Override
 	public Escaque getEsqDest() {
+	
+			return super.getEsqDest();
+	}
+	
+
+	public Escaque getLastEsqDest() {
 		if(movSig==null)
 			return super.getEsqDest();
 		else
@@ -102,7 +139,30 @@ public class MovimientoEncadenado extends Movimiento implements Cloneable{
 	}
 	
 	
+	public int numMovs()
+	{
+		if(movSig==null) return 1;
+		else return 1+ movSig.numMovs();
+	}
 	
 	
+	public List<Escaque> getListEscaques()
+	{
+		List<Escaque> escs= new ArrayList<>();
+		
+		return getListEscaques(escs);
+	}
+
+	private List<Escaque> getListEscaques(List<Escaque> escs) {
+		escs.add(dest);
+		if(movSig==null)
+			return escs;
+		else
+			return movSig.getListEscaques(escs);
+	}
 	
+	@Override
+	public String toString() {
+		return super.toString() + getListEscaques();
+	}
 }
