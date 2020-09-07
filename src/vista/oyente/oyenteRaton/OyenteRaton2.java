@@ -271,7 +271,7 @@ public class OyenteRaton2 implements MouseListener
 							System.err.println(" es MATE");
 							v.setEstado(Estado.JAQUE_MATE);
 							estado=Estado.JAQUE_MATE;
-							throw new ExcepcionJaqueMate("JAQUE MATE");
+							throw new ExcepcionJaqueMate("JAQUE MATE:"+ j.getGanadores());
 						}
 					}
 				}
@@ -283,7 +283,7 @@ public class OyenteRaton2 implements MouseListener
 						System.err.println("fin damas");
 						v.setEstado(Estado.JAQUE_MATE);
 						estado=Estado.JAQUE_MATE;
-						throw new ExcepcionJaqueMate("JAQUE MATE");
+						throw new ExcepcionJaqueMate("JAQUE MATE: Ganador "+ j.getGanadores());
 					}
 					else
 					{

@@ -1,5 +1,6 @@
 package Juego;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
@@ -31,7 +32,8 @@ public abstract class Juego {
 	protected boolean existeGanador; 
 	protected boolean ganadorJ1; 
 	protected boolean ganadorJ2; 
-	
+
+	protected List<Jugador> ganadores= new ArrayList<>();
 	protected boolean movido;
 		
 	//auxiliares
@@ -225,10 +227,19 @@ public abstract class Juego {
 	
 	public void setGanador()
 	{
+		
 		if(turno)
+		{
 			setGanadorJ1(true);
-		else
-			setGanadorJ2(false);
+			ganadores.add(j1);
+			
+		}else
+		{
+			setGanadorJ2(true);
+			ganadores.add(j2);
+
+		}
+		
 	}
 	
 	public void mostrarJugada()
@@ -287,6 +298,7 @@ public abstract class Juego {
 	public boolean isGanadorJ2() {		return ganadorJ2;	}
 	public void setGanadorJ2(boolean ganadorJ2) {		this.ganadorJ2 = ganadorJ2;	}
 
+
 	
 	public boolean isMovido() {		return movido;	}
 	public void setMovido(boolean movido) {		this.movido = movido;	}
@@ -319,6 +331,11 @@ public abstract class Juego {
 
 	public final List<Movimiento> getMovsPosibles() {
 		return movsPosibles;
+	}
+
+
+	public final List<Jugador> getGanadores() {
+		return ganadores;
 	}
 
 

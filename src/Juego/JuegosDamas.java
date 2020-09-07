@@ -170,22 +170,42 @@ public class JuegosDamas extends Juego
 	
 	public boolean comprobarFin()
 	{
-		System.err.println(getJugadorActual().getMisPiezas().size());
-		System.err.println(getOtroJugador().getMisPiezas().size());
+		System.err.println("piezas actual "+getJugadorActual().getMisPiezas().size());
+		System.err.println("piezas otro "+getOtroJugador().getMisPiezas().size());
 
 		
-		if(!leQuedanPiezasAlOtro())
-	//	if(!leQuedanPiezasAlJugador())
+		if(!leQuedanPiezasAlOtro()
+			|| 	!leQuedanPiezasAlJugador())
 
 		{
 			existeGanador=true;
 			setGanador();
 			
 			
+			
 			return true;
 		}
 		
 		return false;
+	}
+	
+	@Override
+	public void setGanador()
+	{
+		if(j1.getMisPiezas().isEmpty())
+		{
+			setGanadorJ2(true);
+			ganadores.add(j2);
+		}
+		
+		if(j2.getMisPiezas().isEmpty())
+		{
+			setGanadorJ1(true);
+			ganadores.add(j1);
+		}
+		
+		
+		
 	}
 
 }
