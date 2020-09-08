@@ -86,9 +86,29 @@ public class Dama extends Pieza{
 	private List<? extends Movimiento> dameMovsCompuestosReina(Escaque esc, boolean izqda )
 	{
 		List<Movimiento> movs= new ArrayList<>();
-		for(int i=-8; i<8;i++)
+		for(int i=1; i<8;i++)
 		{
+			if(i==3)
+				System.out.println("test");
+			
+			Escaque escAv1=dameEscaqueDiagonal(esc,izqda ,i );
+			
+
 			movs.addAll(dameMovsCompuestos(esc, izqda,i));
+			
+			if(escAv1!=null && escAv1.estaOcupado())
+				break;
+		}
+		
+		for(int i=1; i<8;i++)
+		{
+			Escaque escAv1=dameEscaqueDiagonal(esc,izqda ,-i );
+			
+			movs.addAll(dameMovsCompuestos(esc, izqda,-i));
+			
+			if(escAv1!=null && escAv1.estaOcupado())
+				break;
+
 		}
 		
 		return  movs;
@@ -350,8 +370,9 @@ public class Dama extends Pieza{
 		return esReina;
 	}
 
-	public void setEsReina(boolean esReina) {
+	public Dama setEsReina(boolean esReina) {
 		this.esReina = esReina;
+		return this;
 	}
 	
 	

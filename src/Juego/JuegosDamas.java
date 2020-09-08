@@ -15,6 +15,7 @@ import tableros.TableroDamas;
 import tableros.rellenadores.RellenadorDamasInicio;
 import tableros.rellenadores.RellenadorDamasSalto;
 import tableros.rellenadores.RellenadorTablero;
+import test.damas.RellenadorDamasReina;
 
 public class JuegosDamas extends Juego 
 {
@@ -26,11 +27,11 @@ public class JuegosDamas extends Juego
 	protected void construyeTablero()
 	{
 		tablero= new TableroDamas();		
-		rell= new RellenadorDamasSalto();//RellenadorDamasInicio();
+		rell= new RellenadorDamasReina();//new RellenadorDamasSalto();//RellenadorDamasInicio();
 		//rell= new RellenadorDamasInicio();
 
 		System.err.println(rell);
-		rell.creaPiezas((TableroDamas)tablero);
+		rell.rellena((TableroDamas)tablero);
 		
 		
 	}
@@ -91,15 +92,18 @@ public class JuegosDamas extends Juego
 				}
 				
 				System.err.println("mov escogido "+ movimientoEnConstruccion);
-				if(movimientoEnConstruccion==null)System.err.println();
+				if(movimientoEnConstruccion==null)
+					System.err.println("se escoge null");
 				else
-				tablero.realizarMovimiento(movimientoEnConstruccion);
-				movimientosJugados.add(movimientoEnConstruccion);
-				movimientoEnConstruccion=null;
-				escaquesDest= new ArrayList<>();
-				cambiarTurno();
-				piezaEnMov=null;
-				turnoFinalizado=true;
+				{
+					tablero.realizarMovimiento(movimientoEnConstruccion);
+					movimientosJugados.add(movimientoEnConstruccion);
+					movimientoEnConstruccion=null;
+					escaquesDest= new ArrayList<>();
+					cambiarTurno();
+					piezaEnMov=null;
+					turnoFinalizado=true;
+				}
 			}
 			else
 			{
