@@ -21,14 +21,19 @@ public class JuegosDamas extends Juego
 {
 	List<Escaque> escaquesDest= new ArrayList<>();
 
+	/*
+	 * no funciona la asignacion porque construye tablero 
+	 * es invocado por constructor super y
+	 *  no le da tiempo a invocar a este inicializador??
+	 */
 	RellenadorTablero<TableroDamas> rell= new RellenadorDamasInicio();
 	
 	@Override
 	protected void construyeTablero()
 	{
 		tablero= new TableroDamas();		
-		rell= new RellenadorDamasReina();//new RellenadorDamasSalto();//RellenadorDamasInicio();
-		//rell= new RellenadorDamasInicio();
+		//rell= new RellenadorDamasReina();//new RellenadorDamasSalto();//RellenadorDamasInicio();
+		rell= new RellenadorDamasInicio();
 
 		System.err.println(rell);
 		rell.rellena((TableroDamas)tablero);
@@ -93,8 +98,10 @@ public class JuegosDamas extends Juego
 				
 				System.err.println("mov escogido "+ movimientoEnConstruccion);
 				if(movimientoEnConstruccion==null)
+				{
 					System.err.println("se escoge null");
-				else
+					escaquesDest=new ArrayList<>();
+				}else
 				{
 					tablero.realizarMovimiento(movimientoEnConstruccion);
 					movimientosJugados.add(movimientoEnConstruccion);
@@ -142,11 +149,12 @@ public class JuegosDamas extends Juego
 		{
 			//metido ultimo, arreglar
 			System.out.println("cambiando de pieza ");
+			escaquesDest=new ArrayList<>();
 			jugarCasillaInicial(i, j) ;
 		}
 		else
 		{
-			
+			escaquesDest=new ArrayList<>();
 			throw new ExcepcionMovimientoNoPermitido();
 		}
 

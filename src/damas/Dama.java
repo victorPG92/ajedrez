@@ -43,10 +43,12 @@ public class Dama extends Pieza{
 		Escaque esc= tableroAjedrez.dameEscaque(pos);
 		
 		if(esReina)
-			return dameMovsReina(esc);
+			movs= dameMovsReina(esc);
 		
-		return 
-			dameMovimientosDesdeHaciaSimpleYEncadenados(esc);
+		else
+			movs= dameMovimientosDesdeHaciaSimpleYEncadenados(esc);
+		
+		return movs;
 		
 	}
 	
@@ -55,9 +57,11 @@ public class Dama extends Pieza{
 
 		List<Movimiento> movs = new ArrayList<>();
 		
+		movs.addAll(dameMovimientosDesdeHaciaSimpleYEncadenados(esc));
+		
 		System.out.println("movimientos derecha");
 		movs.addAll(dameMovsCompuestosReina(esc, false));
-		System.out.println("movimientos derecha");
+		System.out.println("movimientos izqda");
 		movs.addAll(dameMovsCompuestosReina(esc, true));
 
 		return movs;
@@ -126,7 +130,7 @@ public class Dama extends Pieza{
 		{
 			//la casilla esta libre y no come, movimiento simple y se para ahi
 			if(!escAv1.estaOcupado())
-		{
+			{
 				System.out.println("el escaque "+escAv1 +" esta libre y lo podemos usar");
 				movs.add(new Movimiento(this, escAv1, false));
 			}
@@ -134,7 +138,8 @@ public class Dama extends Pieza{
 			{
 				System.out.println("el escaque "+escAv1 +" esta ocupado por pieza de otro color y debemos ver si lo podemos saltar");
 
-				Escaque escIzqda2=dameEscaqueDiagonal(esc, izqda, ind+1);
+				int sig= ind>0? ind+1:ind-1;
+				Escaque escIzqda2=dameEscaqueDiagonal(esc, izqda, sig);
 				//Escaque escDcha2=dameEscaqueDiagonal(esc, false, 2);
 				
 				System.out.println("comprobar el escaque "+escIzqda2 );
