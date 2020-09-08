@@ -190,7 +190,10 @@ public class TableroAjedrezVisual extends TableroCreado
 			else
 				g.setColor(Color.white);
 			
-			g.drawOval(x0, y0, casX, casY);
+			int grosor=4;
+			//for (int i = 0; i < grosor; i++) 
+			
+			g.fillOval(x0, y0, casX, casY);
 			
 			
 			if(!p.isBlanca())
@@ -198,7 +201,8 @@ public class TableroAjedrezVisual extends TableroCreado
 			else
 				g.setColor(Color.white);
 			
-			g.fillOval(x0, y0, casX, casY);
+			//int grosor=3;
+			g.fillOval(x0+grosor/2, y0+grosor/2, casX-grosor, casY-grosor);
 			
 			
 			if(p.isEsReina())
@@ -209,7 +213,7 @@ public class TableroAjedrezVisual extends TableroCreado
 					g.setColor(Color.white);
 				
 				g.drawOval(x0+casX/4, y0+casY/4, casX/2, casY/2);
-				
+				g.drawOval(x0+casX/2, y0+casY/2, 1, 1);
 			}
 		}
 
