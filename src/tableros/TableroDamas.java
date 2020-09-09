@@ -92,18 +92,22 @@ public class TableroDamas extends TableroAjedrez
 		}
 		else super.moverComerPiezas(m);
 		
-		promocionarADama((Dama) m.getPieza());
+		promocionarADama(m);
 		
 	}
 	
-	protected void promocionarADama(Dama dama)
+	protected void promocionarADama(Movimiento m)//Dama dama)
 	{
+		Dama dama= (Dama) m.getPieza();
 		System.err.println("viendo promocion"+dama.isBlanca()+ " "+dama.getPos().getY());
 		
 		int fila=dama.getPos().getX();
 		if(
 				(dama.isBlanca()&& fila== NUM_COL-1)
 			||	(!dama.isBlanca()&& fila== 0))
+		{
 			dama.setEsReina(true);
+			m.setPromociona(true);
+		}
 	}
 }

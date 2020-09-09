@@ -25,7 +25,7 @@ public abstract class Pieza
 	protected Jugador j;//a que jugador pertenece
 	
 	
-	
+	protected Pieza piezaPromocionada;
 	
 	//almacena los movimientos anteriores apra no recalcularlos::   o mejor recalcularlos???
 	//protected ArrayList<Movimiento> moviientosAnt; 
@@ -159,5 +159,9 @@ public abstract class Pieza
 		return pos;
 	}
 	
+	public void promocionar(Pieza piezaALaqueSePromociona)
+	{
+		piezaALaqueSePromociona.piezaPromocionada=this;
+	}
 
 }

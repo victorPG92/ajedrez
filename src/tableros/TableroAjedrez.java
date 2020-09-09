@@ -6,6 +6,7 @@ import java.util.List;
 import Juego.Escaque;
 import Juego.util.Posicion;
 import constantes.Constantes;
+import damas.Dama;
 import movimientos.Movimiento;
 import movimientos.MovimientoEncadenado;
 import movimientos.MovimientoEnroque;
@@ -247,7 +248,7 @@ public class TableroAjedrez extends TableroCuadrado
 		deshacerMovSimple(m);
 		if(m.isPromociona())
 		{
-			
+			((Dama)m.getPieza()).setEsReina(false);
 		}
 			
 		return false;
