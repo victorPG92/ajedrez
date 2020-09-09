@@ -7,6 +7,7 @@ import Juego.Escaque;
 import Juego.util.Posicion;
 import constantes.Constantes;
 import movimientos.Movimiento;
+import movimientos.MovimientoEncadenado;
 import movimientos.MovimientoEnroque;
 import piezas.Pieza;
 import piezas.TipoFicha;
@@ -204,10 +205,20 @@ public class TableroAjedrez extends TableroCuadrado
 
 	public boolean deshacerMovimiento(Movimiento m) 
 	{
+		if(m==null) return false;
+		
 		if(m instanceof MovimientoEnroque || m.isEnroque())
 			return deshacerMovimientoEnr((MovimientoEnroque) m);
 		
+		if(m instanceof MovimientoEncadenado)
+			return deshacerMovimientoEncadenado((MovimientoEncadenado) m);
+		
+		return deshacerMovSimple(m);
 		//System.out.println("DesHaciendo mov "+ m);
+			
+	}
+	
+	private boolean deshacerMovSimple(Movimiento m) {
 		Pieza p= m.getPieza();
 	
 		
@@ -226,9 +237,22 @@ public class TableroAjedrez extends TableroCuadrado
 		//System.out.println("la pieza ha sido movida? "+p.fueMovida());
 		
 		return true;
-		
-	}
 	
+	}
+
+	private boolean deshacerMovimientoEncadenado(MovimientoEncadenado m) {
+		if(m.getMovSig()!=null)
+			deshacerMovimientoEncadenado(m.getMovSig());
+		
+		deshacerMovSimple(m);
+		if(m.isPromociona())
+		{
+			
+		}
+			
+		return false;
+	}
+
 	/**
 	 * Realiza el movimiento 
 	 * comprueba si se puede

@@ -19,9 +19,18 @@ public class Movimiento implements Cloneable
 	protected int valor;
 	protected boolean quitaJaque;
 	
-	protected boolean movidaAntes;
-	
 	private boolean enroque=false;
+	
+	
+	//para deshacer:
+	
+
+	protected boolean movidaAntes;
+	protected boolean promociona;
+	//si es peon, se vuelve a peon al retroceder
+	//aunque seria interesante saber a que tipo promociona
+	//pero si es damas a reina, el tipo es el mismo
+	
 	
 	public Movimiento() {
 		super();
@@ -121,5 +130,14 @@ public class Movimiento implements Cloneable
 	{
 		return valor;
 	}
+
+	public final boolean isPromociona() {
+		return promociona;
+	}
+
+	public final void setPromociona(boolean promociona) {
+		this.promociona = promociona;
+	}
+	
 	
 }
