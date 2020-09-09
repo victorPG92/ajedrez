@@ -5,8 +5,9 @@ import java.util.List;
 import damas.Dama;
 import movimientos.Movimiento;
 import tableros.TableroDamas;
-import tableros.rellenadores.RellenadorDamasInicio;
 import tableros.rellenadores.RellenadorTablero;
+import tableros.rellenadores.damas.RellenadorDamasInicio;
+import test.damas.rell.RellenadorDamasPruebaComer;
 
 public class TestDamas
 {

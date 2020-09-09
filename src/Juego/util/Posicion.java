@@ -79,6 +79,18 @@ public class Posicion
 		
 	}
 	
+	public static Posicion[] creaPosiciones(int ...d)
+	{
+		int n=d.length/2;
+		Posicion poss[]= new Posicion[n];
+		
+		for (int i = 0; i < poss.length; i++) {
+			poss[i]=new Posicion(d[2*i],d[2*i+1]);
+		}
+		
+		return poss;
+	}
+	
 	public Posicion clone()
 	{
 		return new Posicion(x, y);

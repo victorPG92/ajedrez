@@ -2,12 +2,14 @@ package damas;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import Juego.Escaque;
 import Juego.util.Posicion;
 import movimientos.Movimiento;
 import movimientos.MovimientoEncadenado;
 import piezas.Pieza;
+import piezas.TipoFicha;
 import tableros.Tablero;
 import tableros.TableroAjedrez;
 import tableros.TableroDamas;
@@ -24,6 +26,7 @@ public class Dama extends Pieza{
 		this.pos=pos;
 		this.tableroAjedrez=t;
 		id= idInc++;
+		tipo= TipoFicha.DAMA;
 	}
 
 	@Override
@@ -36,6 +39,7 @@ public class Dama extends Pieza{
 	@Override
 	public List<Movimiento> movimientos() 
 	{
+		System.out.println("consultando movs de dama");
 		List<Movimiento> movs= new ArrayList<>();
 		
 		//movs.addAll(dameMovimientosDesde(tableroAjedrez.dameEscaque(pos)));
@@ -84,7 +88,9 @@ public class Dama extends Pieza{
 	
 	private List<? extends Movimiento> dameMovsCompuestos(Escaque esc, boolean izqda )
 	{
-		return dameMovsCompuestos(esc, izqda, 1);
+		//return dameMovsCompuestos(esc, izqda, 1);
+		return dameMovsCompuestos(esc, izqda, 1/*isBlanca()?1:-1*/);
+
 	}
 	
 	private List<? extends Movimiento> dameMovsCompuestosReina(Escaque esc, boolean izqda )
@@ -157,7 +163,7 @@ public class Dama extends Pieza{
 				}
 				else
 				{
-					System.out.println("El escaque "+escIzqda2 +" esta pcupado");
+					System.out.println("El escaque "+escIzqda2 +" esta ocupado");
 				}
 				
 			}
@@ -274,17 +280,19 @@ public class Dama extends Pieza{
 	public List<MovimientoEncadenado> getMovimientosComer(Escaque esc) 
 	{
 	
-		System.out.println("ver movs comer");
+		System.out.println("ver movs comer sobre "+ esc);
 		List<MovimientoEncadenado> movs= new ArrayList<>();
 		
 		//excepto que sea reina
 		
 		//la siguiente debe estar ocupada:
-		int avance= isBlanca()?1:-1;
+		int avance=1;//int avance= isBlanca()?1:-1;
 		
 		//y las siguientes libres:
 		int avance2= 2*avance; //asi en el bule for  el 2 sera i
 		//isBlanca()?2:-2;
+		
+		System.out.println("es " +(isBlanca()?" blanca ":" negra ")+ " y avanza "+ avance );
 		
 		/*
 		Posicion posDiagonIzqda= posActual.addAnotherVector(-1, avance);
@@ -295,14 +303,17 @@ public class Dama extends Pieza{
 		{
 			Escaque escIzqda= dameEscaqueDiagonal(esc, izq, avance);
 			Escaque escIzqda2= dameEscaqueDiagonal(esc, izq, avance2);
-			if(escIzqda !=null && escIzqda.estaOcupado() && escIzqda.damePieza().isBlanca()!=blanca && escIzqda2!=null)//   //!((TableroDamas)tableroAjedrez).sePuedeir(escIzqda)
+			
+			System.out.println("revisando "+ escIzqda + " y " + escIzqda2);
+			if(escIzqda !=null && escIzqda.estaOcupado() && escIzqda.damePieza().isBlanca()!=blanca && escIzqda2!=null && !escIzqda2.estaOcupado())//   //!((TableroDamas)tableroAjedrez).sePuedeir(escIzqda)
 			{
 				Pieza piezaComida= escIzqda.damePieza();
 				MovimientoEncadenado mov1= new MovimientoEncadenado(this, escIzqda2, piezaComida);
 				
 				List<MovimientoEncadenado> movsHijos = getMovimientosComer(escIzqda2);
 				
-				return encadenaMov(mov1, movsHijos);
+				List<MovimientoEncadenado> movsEncs = encadenaMov(mov1, movsHijos);
+				movs.addAll(movsEncs);
 			}
 		}
 		
@@ -378,6 +389,24 @@ public class Dama extends Pieza{
 	public Dama setEsReina(boolean esReina) {
 		this.esReina = esReina;
 		return this;
+	}
+
+	public MovimientoEncadenado getMovimiento(Posicion[] movimientoElegido) {
+
+		try {
+			
+		List<Escaque> escques= tableroAjedrez.dameEscaques(movimientoElegido);
+		return 
+		movimientos().
+			stream().
+			filter(m-> m instanceof MovimientoEncadenado).
+			map(m-> (MovimientoEncadenado)m).
+			filter(m-> m.sigueCaminoEnDestino(escques, true)).
+			findFirst().
+			get();
+		} catch (NoSuchElementException e) {
+			 return null;
+		}
 	}
 	
 	

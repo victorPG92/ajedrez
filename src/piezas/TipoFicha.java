@@ -2,7 +2,9 @@ package piezas;
 
 public enum TipoFicha 
 {
-	ALFIL('a'),TORRE('t'), CABALLO('c'), REY('k'), REINA('q'),PEON('p');
+	ALFIL('a'),TORRE('t'), CABALLO('c'), REY('k'), REINA('q'),PEON('p'),
+	
+	DAMA('d');
 	
 	TipoFicha(char c1){c=c1;}
 	

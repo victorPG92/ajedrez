@@ -12,10 +12,10 @@ import movimientos.preds.PredSigueMovEscaques;
 import piezas.Pieza;
 import tableros.TableroAjedrez;
 import tableros.TableroDamas;
-import tableros.rellenadores.RellenadorDamasInicio;
-import tableros.rellenadores.RellenadorDamasSalto;
 import tableros.rellenadores.RellenadorTablero;
-import test.damas.RellenadorDamasReina;
+import tableros.rellenadores.damas.RellenadorDamasInicio;
+import test.damas.rell.RellenadorDamasReina;
+import test.damas.rell.RellenadorDamasSalto;
 
 public class JuegosDamas extends Juego 
 {

@@ -431,6 +431,16 @@ public class TableroAjedrez extends TableroCuadrado
 		return t;
 	}
 
+	public List<Escaque> dameEscaques(Posicion[] movimientoElegido) 
+	{
+		List<Escaque> escaques= new ArrayList<>();
+		for (Posicion posicion : movimientoElegido) {
+			//if not null
+			escaques.add(dameEscaque(posicion));
+		}
+		return escaques;
+	}
+
 	
 
 	

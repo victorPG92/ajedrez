@@ -15,7 +15,7 @@ import Juego.util.Dificultad;
 import movimientos.Movimiento;
 import piezas.Pieza;
 import tableros.TableroAjedrez;
-import tableros.rellenadores.RellenadorAjedrezInicio;
+import tableros.rellenadores.ajedrez.RellenadorAjedrezInicio;
 
 public class JuegoAjedrez extends Juego
 {

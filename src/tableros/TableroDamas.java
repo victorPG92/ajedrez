@@ -77,7 +77,8 @@ public class TableroDamas extends TableroAjedrez
 				
 				Pieza piezaComida=movEnc.getPiezaComida();
 			
-				piezaComida.getJ().getMisPiezas().remove(piezaComida);
+				if(piezaComida.getJ()!=null)
+					piezaComida.getJ().getMisPiezas().remove(piezaComida);
 				
 				if(piezaComida==null)System.err.println("null comida");
 				dameEscaque(piezaComida.
