@@ -23,11 +23,8 @@ public class ExtractorPiezasTotal implements ExtractorPiezas
 				Pieza p=t.damePieza(j, i);
 				if(p!=null)
 				{
-					if(p.isBlanca())
-						j1.getMisPiezas().add(p);
-					
-					else
-						j2.getMisPiezas().add(p);
+					Jugador jug=p.isBlanca()?j1:j2;					
+					asociaPieza(jug, p);
 				}
 				
 			}

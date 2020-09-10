@@ -25,8 +25,8 @@ public class JuegoAjedrez extends Juego
 	protected void construyeTablero() {
 		tablero= new TableroAjedrez();
 		rell= new RellenadorAjedrezInicio();
-		rell.creaPiezas(tablero);
-		
+		//rell.creaPiezas(tablero);
+		rell.rellena(tablero);
 	}
 
 	

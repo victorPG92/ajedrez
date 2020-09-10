@@ -59,8 +59,10 @@ public abstract class Juego {
 		construyeTablero();
 		extrPiezas.extraerPiezas(tablero, j1, j2);
 		
+		//con el extractor, no es necesario la funcion
+		//colocaTurnos();
 		
-		 colocaTurnos();
+		
 		//v= new VentanaAjedrez(t);
 		
 		//this.guardarMemento();

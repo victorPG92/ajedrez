@@ -25,10 +25,15 @@ public class ExtractorPiezasParcialInicio implements ExtractorPiezas
 				Pieza p=t.damePieza(f, i);
 				if(p!=null)
 				{
+					
+					Jugador jug=f<2?j1:j2;
+					//Jugador jug=p.isBlanca()?j1:j2;					
+					asociaPieza(jug, p);
+					/*
 					if(f<2 )
 						j1.getMisPiezas().add(p);
 					else
-						j2.getMisPiezas().add(p);
+						j2.getMisPiezas().add(p);*/
 				}
 			}
 

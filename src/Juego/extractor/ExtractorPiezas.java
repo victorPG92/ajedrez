@@ -1,6 +1,7 @@
 package Juego.extractor;
 
 import Juego.Jugador;
+import piezas.Pieza;
 import tableros.TableroAjedrez;
 
 public interface ExtractorPiezas 
@@ -10,4 +11,10 @@ public interface ExtractorPiezas
 	
 	public void extraerPiezas(TableroAjedrez t, Jugador j1, Jugador j2);
 
+	
+	public default void asociaPieza(Jugador jug, Pieza p)
+	{
+		jug.getMisPiezas().add(p);
+		p.setJ(jug);
+	}
 }
